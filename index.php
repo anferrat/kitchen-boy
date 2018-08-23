@@ -11,6 +11,11 @@ if (file_exists(__DIR__.'/config.php')) {
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 include 'fbbot.php';
+$conn = mysqli_connect($hostname, $username, $password, $database);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
 
 $sql = "SELECT ms_id FROM ".$database.".pending";
 $result = $conn->query($sql);
@@ -461,4 +466,6 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
         }
     }
 }
+
+mysqli_close ($conn);
 ?>

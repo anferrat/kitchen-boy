@@ -34,7 +34,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
      {
             foreach ($data['entry'][0]['messaging'] as $message)
            {
-$content = $data['entry'][0]['messaging'][0]['message']['app_id'];
+$content = $data['entry'][0]['messaging'][0];
 $fp = fopen("myText.txt","wb");
 fwrite($fp,$content);
 fclose($fp);

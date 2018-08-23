@@ -96,6 +96,8 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$login_res=1;
 				$pen_name = substr($command,6);
+				
+				
 				for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
@@ -484,7 +486,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             }*/
         }
     }
-}
+
 
 mysqli_close ($conn);
 ?>

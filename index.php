@@ -30,7 +30,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 } else {
 
      $data = json_decode(file_get_contents("php://input"), true);
-     if (!empty($data['entry'][0]['messaging']))
+     if (!empty($data['entry'][0]['messaging']) && !($data['entry'][0]['messaging'][0]['message']['app_id'] == 1935046733459562))
      {
             foreach ($data['entry'][0]['messaging'] as $message)
            {
@@ -38,7 +38,7 @@ $content = file_get_contents("php://input");
 $fp = fopen("myText.txt","wb");
 fwrite($fp,$content);
 fclose($fp);
-//$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

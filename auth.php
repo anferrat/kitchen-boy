@@ -34,11 +34,11 @@ if ($result->num_rows > 0) {
 }
 
 }
-/*if (isset($_POST['sub_key']) != '') 
+if (isset($_POST['sub_key'])) 
 {
 approve($_POST['sub_key']);
 }
-/*
+
 
 
 mysqli_close ($conn);

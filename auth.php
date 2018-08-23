@@ -13,6 +13,7 @@ function approve($key)
 {
 	global $conn;
 	global $database;
+	global $bot;
 	
 	$sql = "SELECT * FROM ".$database.".pending";
 $result = $conn->query($sql);
@@ -33,7 +34,7 @@ $sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."') and (`
 //$sql8 = "DELETE FROM `jigmxu6hdlz98dkx`.`pending` WHERE (`key` = '6') and (`ms_id` = '2170490766313202')";
 $rr = mysqli_query($conn, $sql8) or die($sql8);
 reg_conf($ms_id_del);
-
+$bot->send(new Message($ms_id_del, 'Yo'));
 }
 
 

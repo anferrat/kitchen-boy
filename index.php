@@ -90,15 +90,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             // Handle command
 			
 			
-			
-			
-			if (strpos($command,'login ') === 0)
-			{
-				$login_res=1;
-				$pen_name = substr($command,6);
-				
-				
-				for ($i=0;$i<count($ms_id_pen);$i++)
+							for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
@@ -116,6 +108,14 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						break;
 					}
 				}	
+			
+			if (strpos($command,'login ') === 0)
+			{
+				$login_res=1;
+				$pen_name = substr($command,6);
+				
+				
+
 				
 				
 				
@@ -146,7 +146,22 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			}
 			else if (!empty($command))
 				{
-					$bot->send(new Message($message['sender']['id'], 'chetotakoe'));
+					if ($login_res == 200)
+				{
+					$bot->send(new Message($message['sender']['id'], 'You have a pending login request'));
+				}
+				else if ($login_res == 300)
+				{
+					//main code
+				} 
+				else 
+				{
+					$bot->send(new Message($message['sender']['id'], 'Hi, my name is KithcenBoy. In order to start simply type: login <your name>'));
+				}
+					
+					
+					
+					//$bot->send(new Message($message['sender']['id'], 'chetotakoe'));
 				}
 			/*else 
 			{

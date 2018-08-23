@@ -34,11 +34,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
      {
             foreach ($data['entry'][0]['messaging'] as $message)
            {
-$content = $data['entry'][0]['messaging']['sender'];
+$content = file_get_contents("php://input");
 $fp = fopen("myText.txt","wb");
 fwrite($fp,$content);
 fclose($fp);
-//$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

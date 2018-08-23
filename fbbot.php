@@ -70,6 +70,37 @@ if (!empty($_REQUEST['local'])) {
     echo '<pre>', print_r($res), '</pre>';
 }
 
+function nex_date($idd)
+{
+	global $names;
+	global $messenger_id;
+	
+	for($i=0;$i<count($messenger_id);i++)
+	{
+		if ($messenger_id[$i] == $idd)
+		{
+			$set_name = $names[$i];
+		}
+	}
+	$d = sch_gen(15);
+	$n_date ='never';
+	for($i=0;$i<count($d['events']);$i++)
+	{
+		if ($d['events'][$i]['title'] == $set_name)
+		{
+	$n_date = $d['events'][$i]['start'];		
+		}
+	
+	return $n_date;
+}
+
+function reg_conf($idd)
+{
+
+	$dd = nex_date($idd);
+	$bot->send(new Message($idd, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for'.$dd.'. You will recieve reminder in that day'));
+
+	}
 
 function note_gen()
 {

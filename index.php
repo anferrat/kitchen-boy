@@ -89,13 +89,17 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             }
             // Handle command
 			
+			//Login condition check
 			
-							for ($i=0;$i<count($ms_id_pen);$i++)
+				for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
 						$login_res = 200; // request is pending
 						break;
+					}
+					else {
+						$login_res = 100;
 					}
 				
 				}
@@ -107,58 +111,55 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						$login_res = 300; //already registred
 						break;
 					}
+					else
+					{
+						$login_res = 100;
+					}
 				}	
 			
-			if ((strpos($command,'login ') === 0) && ($login_res!=200) && ($login_res!=300))
+		// command condition check	generate $req with type of command
+			if ((strpos($command,'login ') === 0) )
 			{
-
-				$pen_name = substr($command,6);
-				
-				
-				
-					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
-					mysqli_query($conn, $sql);
-					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
-					
-				
-				
-				
-				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";
-			//$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
+				$req = 'login';
 			}
-			else if (!empty($command))
+			
+			
+// command action gen
+			if (!empty($command))
 				{
-					if ($login_res == 200)
+					if ($login_res == 200 && $req == 'login')
 				{
 					$bot->send(new Message($message['sender']['id'], 'You have a pending login request'));
 				}
-				else if ($login_res == 300)
+				else if ($login_res == 300 && $req == 'login')
 				{
 					$bot->send(new Message($message['sender']['id'], 'You are already registred'));
 				} 
-				else 
+				else if ($login_res == 100 && $req == 'login')
+				{
+					$pen_name = substr($command,6);
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
+					mysqli_query($conn, $sql);
+					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
+				}
+				else if ($login_res == 100 && $req != 'login')
 				{
 					$bot->send(new Message($message['sender']['id'], 'Hi, my name is KithcenBoy. In order to start simply type: login <your name>'));
 				}
-					
-					
-					
-					//$bot->send(new Message($message['sender']['id'], 'chetotakoe'));
-				}
-			/*else 
-			{
-				if ($login_res == 200)
+				else if ($login_res == 300 && $req != 'login')
 				{
-					$bot->send(new Message($message['sender']['id'], 'You have a pending login request'));
+					//commands
 				}
-				else if ($login_res == 300)
+				else if ($login_res == 200 && $req != 'login')
 				{
-					//main code
-				} 
+					$bot->send(new Message($message['sender']['id'], 'You have a pending login request. You cant use commands yet'));
+				}
 				else 
 				{
-					//$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
-				}*/
+					///
+				}
+					
+				}
 			}
 
 			

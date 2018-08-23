@@ -39,7 +39,7 @@ $content = file_get_contents("php://input");
 fwrite($fp,$content);
 fclose($fp);*/
 $bott = new FbBotApp($token);
-$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+//$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

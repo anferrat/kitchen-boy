@@ -21,7 +21,7 @@ use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
 
 
-
+/*
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
 {
@@ -40,12 +40,14 @@ fwrite($fp,$content);
 fclose($fp);*/
 $bott = new FbBotApp($token);
 //$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+$bott->send(new Message(2170490766313202, 'зАЕБАЛ'));
 
+/*
             }
    }
 }
 
-
+*/
 
 
 ?>

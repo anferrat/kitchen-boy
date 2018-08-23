@@ -1,11 +1,4 @@
 <?php
-$pi2 = '{"object":"page","entry":[{"id":"1791306587664581","time":1534988947184,"messaging":[{"sender":{"id":"2170490766313202"},"recipient":{"id":"1791306587664581"},"timestamp":1534988539102,"message":{"mid":"x5H7P1urGQClq3UqwO2-56k-EwydcvFMcwgoN0TZpwhIHWusvaZhm7NEcQlZtQhvQ8FDJcgUnufx3TIPNDrDKQ","seq":87870,"text":"Hu"}}]}]}';
-$pi = '{"object":"page","entry":[{"id":"1791306587664581","time":1534988539420,"messaging":[{"sender":{"id":"1791306587664581"},"recipient":{"id":"2170490766313202"},"timestamp":1534988073579,"message":{"is_echo":true,"app_id":1935046733459562,"mid":"P5yMBfOtxnp36A4xgcYZtqk-EwydcvFMcwgoN0TZpwi3MDfye3xdCYCWOzZ5gtIVxjEbTuYXOJRcW03Aom3Lrw","seq":87143,"text":"Hi there!"}}]}]}';
-$data = json_decode($pi,true);
-
-//$names = array('Andrei','Sergei','Anir','Olga');
-//$messenger_id = array('111111111','22222222222222','33333333333','4444444444444');
-//$order_numbers = array('1','3','4','2');
 
 $url = getenv('JAWSDB_URL');
 $dbparts = parse_url($url);
@@ -209,15 +202,5 @@ if (mysqli_query($conn, $sql4)) {
 	return $stat;
 }
 
-
-
-
-
-
-//rem_client('4567654345676546');
-//add_client('54309812354','Julian');
-/*add_client('34434553767','Bill');
-add_client('7645467384767','Stan');
-add_client('165644467384767','Onely');*/
 mysqli_close ($conn);
 ?>

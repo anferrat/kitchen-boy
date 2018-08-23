@@ -1,6 +1,8 @@
 <?php
 $verify_token = "kitchen";
 $token = "EAAbf6i0r8GoBAAoL1EVtXv1DibWI5lRfMU7r2YkGe3w5a3FnE73f0zxkhFY3mJiE6ACuwyD9IweseZCteAZB7J10PTJXRndTtzyhsV9wLUnwDtIkc2wGfjIoxof5n379YNEgP7le8yXPbtb5sqZAcWEqcJXZBIPRhWZClnTZAMZCuZAAuNQhtwGF";
+include 'fbbot.php';
+
 if (file_exists(__DIR__.'/config.php')) {
     $config = include __DIR__.'/config.php';
     $verify_token = $config['verify_token'];
@@ -48,8 +50,23 @@ if (!empty($_REQUEST['local'])) {
     echo '<pre>', print_r($res), '</pre>';
 }
 
-$bot->send(new Message('2170490766313202', 'kak jizn'));
+//$bot->send(new Message('2170490766313202', 'kak jizn'));
 
+function note_gen()
+{
+	$d = sch_gen(1);
+	for($i=0;$i<count($names);$i++)
+	{
+		if ($d['events'][0]['title'] == $names[$i])
+		{
+	$recipient_not_id = $i;		
+		}
+	}
+	
+	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Today is your lucky day to clean the kitchen. Make sure you dont forget it'));
+	
+}
 
+note_gen();
 mysqli_close ($conn);
 ?>

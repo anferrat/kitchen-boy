@@ -33,7 +33,7 @@ $fp = fopen("myText.txt","wb");
 $content = file_get_contents("php://input");
 fwrite($fp,$content);
 fclose($fp);
-$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+//$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

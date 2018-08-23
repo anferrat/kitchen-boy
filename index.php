@@ -139,8 +139,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					default:
 					$bot->send(new Message($message['sender']['id'], 'Something went wrong...'));
 				}
-				else if (!empty($command))
+				else 
 				{
+					if (!empty($command))
 					$bot->send(new Message($message['sender']['id'], 'chetotakoe'));
 				}
 				

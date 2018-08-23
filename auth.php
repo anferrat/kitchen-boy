@@ -9,6 +9,13 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+if (isset($_POST['sub_key'])) 
+{
+approve($_POST['sub_key']);
+}
+
+
+
 $sql = "SELECT * FROM ".$database.".pending";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -32,19 +39,18 @@ if ($result->num_rows > 0) {
 } else {
  die("No Data found");
 }
+$sql = "DELETE FROM ".$database.".pending WHERE key=".$key;
+mysqli_query($conn, $sql);
+}
 
-}
-if (isset($_POST['sub_key'])) 
-{
-approve($_POST['sub_key']);
-}
 
 
 
 mysqli_close ($conn);
 ?>
 
-<html><body> 
+<html>
+<body> 
  
 <form action= "auth.php" method= "POST"> 
  
@@ -53,4 +59,5 @@ mysqli_close ($conn);
 
 <input type= "submit" value= "Send"> 
  
-</body></html> 
+</body>
+</html> 

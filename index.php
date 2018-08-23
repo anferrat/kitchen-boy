@@ -30,7 +30,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 } else {
 
      $data = json_decode(file_get_contents("php://input"), true);
-     if (!empty($data['entry'][0]['messaging']) && false)
+     if (!empty($data['entry'][0]['messaging']) && !($data['entry'][0]['messaging'][0]['message']['app_id'] == 1935046733459562))
      {
             foreach ($data['entry'][0]['messaging'] as $message)
            {

@@ -139,7 +139,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					default:
 					$bot->send(new Message($message['sender']['id'], 'Something went wrong...'));
 				}
-				
+				else if (!empty($command))
+				{
+					$bot->send(new Message($message['sender']['id'], 'chetotakoe'));
+				}
 				
 				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";
 			//$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));

@@ -90,13 +90,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             // Handle command
 			
 			
-			if (strpos($command,'login ') === 0)
-			{
-				echo "im here";
-				$login_res=1;
-				$pen_name = substr($command,6);
-				
-				for ($i=0;$i<count($ms_id_pen);$i++)
+			for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
@@ -113,6 +107,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						$login_res = 300; //already registred
 						break;
 					}
+			
+			if (strpos($command,'login ') === 0)
+			{
+				$login_res=1;
+				$pen_name = substr($command,6);
+				
+				
 				
 				}
 				
@@ -129,6 +130,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					case 1:
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
 					mysqli_query($conn, $sql);
+					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
 					break;
 					
 					default:
@@ -138,6 +140,20 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				
 				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";
 			//$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
+			}
+			else 
+			{
+				if ($login_res == 200)
+				{
+					$bot->send(new Message($message['sender']['id'], 'You have a pending login request'));
+				}
+				else if ($login_res == 300)
+				{
+					//main code
+				} else 
+				{
+					$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
+				}
 			}
 
 			

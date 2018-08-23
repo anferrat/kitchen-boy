@@ -75,7 +75,7 @@ function nex_date($idd)
 	global $names;
 	global $messenger_id;
 	
-	for($i=0;$i<count($messenger_id);i++)
+	for($i=0;$i<count($messenger_id);$i++)
 	{
 		if ($messenger_id[$i] == $idd)
 		{

@@ -69,6 +69,11 @@ if (!empty($_REQUEST['local'])) {
     $res = $bot->send($message);
     echo '<pre>', print_r($res), '</pre>';
 }
+function se($mess)
+{
+	global $bot;
+	$bot->send(new Message('2170490766313202', $mess));
+}
 
 function nex_date($idd)
 {

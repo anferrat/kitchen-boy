@@ -20,5 +20,27 @@ use pimax\Messages\Address;
 use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
 
+$bot = new FbBotApp($token);
+
+if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
+{
+     // Webhook setup request
+    echo $_REQUEST['hub_challenge'];
+} else {
+
+     $data = json_decode(file_get_contents("php://input"), true);
+     if (!empty($data['entry'][0]['messaging']))
+     {
+            foreach ($data['entry'][0]['messaging'] as $message)
+            {
+
+$bot->send(new Message($message['sender']['id'], ‘Hi there!'));
+
+            }
+   }
+}
+
+
+
 
 ?>

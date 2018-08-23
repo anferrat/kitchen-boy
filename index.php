@@ -56,10 +56,12 @@ if (!empty($_REQUEST['local'])) {
     $res = $bot->send($message);
     echo '<pre>', print_r($res), '</pre>';
 }
+
+
 // Receive something
 
 
-
+$bot->send(new Message('2170490766313202', 'Yo'));
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
     // Webhook setup request

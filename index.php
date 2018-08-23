@@ -107,6 +107,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						$login_res = 300; //already registred
 						break;
 					}
+				}	
 			
 			if (strpos($command,'login ') === 0)
 			{
@@ -115,7 +116,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				
 				
 				
-				}
+				
 				
 				switch($login_res)
 				{
@@ -150,7 +151,8 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				else if ($login_res == 300)
 				{
 					//main code
-				} else 
+				} 
+				else 
 				{
 					$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
 				}

@@ -102,7 +102,7 @@ function reg_conf($idd2)
 	$bot->send(new Message($idd2, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for'.$dd.'. You will recieve reminder in that day'));
 
 	}
-reg_conf('2170490766313202');
+//reg_conf('2170490766313202');
 
 function note_gen()
 {

@@ -93,7 +93,8 @@ function nex_date($idd)
 	{
 		if ($d['events'][$i]['title'] == $set_name)
 		{
-	$n_date = $d['events'][$i]['start'];		
+	$n_date = $d['events'][$i]['start'];
+break;	
 		}
 	}
 	

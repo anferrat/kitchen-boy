@@ -105,7 +105,7 @@ function reg_conf($idd2)
 {
     global $bot;
 	$dd = nex_date($idd2);
-	$bot->send(new Message($idd2, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for '.$idd2.'. You will recieve reminder in that day'));
+	$bot->send(new Message($idd2, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for '.$dd.'. You will recieve reminder in that day'));
 
 	}
 
@@ -219,6 +219,9 @@ if (mysqli_query($conn, $sql2)) {
 } else {
     $stat=0;
 }
+$names[count($names)] = $new_name;
+$messenger_id[count($messenger_id)] = $ms_id;
+$order_numbers[count($order_numbers)] = $new_order;
 }
 	return $stat;
 }

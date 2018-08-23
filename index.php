@@ -92,6 +92,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			
 			if (strpos($command,'login ') === 0)
 			{
+				echo "im here";
 				$login_res=1;
 				$pen_name = substr($command,6);
 				

@@ -154,7 +154,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				} 
 				else 
 				{
-					$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
+					//$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
 				}
 			}
 

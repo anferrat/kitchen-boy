@@ -9,7 +9,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT ms_id, name, key, type FROM ".$database.".pending";
+$sql = "SELECT * FROM ".$database.".pending";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row

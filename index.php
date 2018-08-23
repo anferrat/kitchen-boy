@@ -38,7 +38,7 @@ $content = file_get_contents("php://input");
 $fp = fopen("myText.txt","wb");
 fwrite($fp,$content);
 fclose($fp);
-$bott->send(new Message($message['sender']['id'], 'Hi there!'));
+//$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

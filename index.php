@@ -121,7 +121,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					break;
 					
 					case 1:
-					$sql = "INSERT INTO ".$database.".pending (ms_id, name) VALUES ('".$message['sender']['id']."', '".$pen_name."')";
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
 					mysqli_query($conn, $sql);
 					break;
 					

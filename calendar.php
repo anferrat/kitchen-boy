@@ -16,9 +16,9 @@ $(function() {
   // page is now ready, initialize the calendar...
 
   $('#calendar').fullCalendar(  <?php
-  $cal = 'ok';
+ 
   include 'fbbot.php';
-  
+  echo json_encode(sch_gen(30));
   ?>
   )
 

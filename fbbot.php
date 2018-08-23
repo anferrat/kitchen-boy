@@ -210,11 +210,9 @@ if (mysqli_query($conn, $sql4)) {
 }
 
 
-if ($call6 = 'ok')
-{
 
-	echo json_encode(sch_gen(30));
-}
+
+
 
 //rem_client('4567654345676546');
 //add_client('54309812354','Julian');

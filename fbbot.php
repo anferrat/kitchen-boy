@@ -7,10 +7,13 @@ $data = json_decode($pi,true);
 //$messenger_id = array('111111111','22222222222222','33333333333','4444444444444');
 //$order_numbers = array('1','3','4','2');
 
-$hostname = 'a5s42n4idx9husyc.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
-$username = 'l9tfl420k2741p5h';
-$password = 'q9pmxfq3awyjsh8t';
-$database = 'jigmxu6hdlz98dkx';
+$url = getenv('JAWSDB_URL');
+$dbparts = parse_url($url);
+
+$hostname = $dbparts['host'];
+$username = $dbparts['user'];
+$password = $dbparts['pass'];
+$database = ltrim($dbparts['path'],'/');
 
 
 // Create connection

@@ -11,24 +11,34 @@ if (!$conn) {
 
 function approve($key)
 {
-	$sql = "SELECT ms_id, name FROM ".$database.".pending WHERE key=".$key;
+	global $conn;
+	global $database;
+	
+	$sql = "SELECT * FROM ".$database.".pending";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-       add_client($row['ms_is'],$row['name']);
+       if ($row['key'] == $key)
+	   {
+		   $ms_id_del = $row['ms_id'];
+	   add_client($row['ms_id'],$row['name']);
+	   }
     }
 } else {
  die("No Data found");
 }
-$sql = "DELETE FROM ".$database.".pending WHERE key=".$key;
-mysqli_query($conn, $sql);
+$sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."') and (`ms_id` = '".$ms_id_del."')";
+//echo $sql8;
+//$sql8 = "DELETE FROM `jigmxu6hdlz98dkx`.`pending` WHERE (`key` = '6') and (`ms_id` = '2170490766313202')";
+$rr = mysqli_query($conn, $sql8) or die($sql8);
 }
 
 
 if (isset($_POST['sub_key'])) 
 {
 approve($_POST['sub_key']);
+
 }
 
 

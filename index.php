@@ -37,6 +37,10 @@ if (!empty($_REQUEST['local'])) {
     echo '<pre>', print_r($res), '</pre>';
 }
 // Receive something
+
+
+
+
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
     // Webhook setup request
     echo $_REQUEST['hub_challenge'];
@@ -65,11 +69,14 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             }
             // Handle command
             switch ($command) {
-                // When bot receive "text"
-                case 'text':
-                    $bot->send(new Message($message['sender']['id'], 'This is a simple text message.'));
+                // When bot receive "login"
+                case 'login':
+                    $bot->send(new Message($message['sender']['id'], 'your id'.$message['sender']['id']));
                     break;
-                // When bot receive "image"
+                
+				
+				/*
+				// When bot receive "image"
                 case 'image':
                     $bot->send(new ImageMessage($message['sender']['id'], 'http://bit.ly/2p9WZBi'));
                     break;
@@ -382,7 +389,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 // Other message received
                 default:
                     if (!empty($command)) // otherwise "empty message" wont be understood either
-                        $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));
+                        $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));   */
             }
         }
     }

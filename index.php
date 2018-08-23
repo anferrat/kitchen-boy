@@ -10,6 +10,8 @@ if (file_exists(__DIR__.'/config.php')) {
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
+include 'fbbot.php';
+
 use pimax\FbBotApp;
 use pimax\Menu\MenuItem;
 use pimax\Menu\LocalizedMenu;

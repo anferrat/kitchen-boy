@@ -70,6 +70,6 @@ function note_gen()
 	
 }
 
-//note_gen();
+note_gen();
 mysqli_close ($conn);
 ?>

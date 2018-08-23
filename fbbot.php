@@ -210,7 +210,7 @@ if (mysqli_query($conn, $sql4)) {
 }
 
 
-if ($cal = 'ok')
+if ($call6 = 'ok')
 {
 
 	echo json_encode(sch_gen(30));

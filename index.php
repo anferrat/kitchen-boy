@@ -118,6 +118,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				$req = 'login';
 			}
 			
+			if ($command == 'calendar')
+			{
+				$req = 'calendar';
+			}
 			
 // command action gen
 			if (!empty($command))
@@ -143,7 +147,16 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}
 				else if ($login_res == 300 && $req != 'login')
 				{
-					//commands
+					
+					if ($req = 'calendar')
+					{
+					$bot->send(new Message($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.php'));
+					
+					}
+					else
+					{
+						
+					}
 				}
 				else if ($login_res == 200 && $req != 'login')
 				{

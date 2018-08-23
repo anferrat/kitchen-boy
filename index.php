@@ -1,6 +1,6 @@
 <?php
 $access_token = "EAAH5qCyWCdcBAP0ddTZBNbVRdmqd43TZCnBJGFEwRZAmO76hlrXfWmVzBXO5xEsochEnlrQ88Tkrwm2B63KzXctLxXQ8RU6KKM9sWEFsGZAaBzmmMUoqVjfir1n5ufXgW8btvZAL41bNJ5S0IceHKUCioOLTqCLZCZCOOMlNz5fRAZDZD”;
-$verify_token = “kitchen”;
+$verify_token = "kitchen";
 $hub_verify_token = null;
 if(isset($_REQUEST[‘hub_challenge’])) {
  $challenge = $_REQUEST[‘hub_challenge’];

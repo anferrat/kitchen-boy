@@ -57,6 +57,8 @@ function note_gen()
 {
 	global $names;
 	global $messenger_id;
+	global $bot;
+	
 	$d = sch_gen(1);
 	for($i=0;$i<count($names);$i++)
 	{

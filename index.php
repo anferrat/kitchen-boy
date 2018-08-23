@@ -90,12 +90,18 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             // Handle command
 			
 			
-			for ($i=0;$i<count($ms_id_pen);$i++)
+			
+			
+			if (strpos($command,'login ') === 0)
+			{
+				$login_res=1;
+				$pen_name = substr($command,6);
+				for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
 						$login_res = 200; // request is pending
-						
+						break;
 					}
 				
 				}
@@ -105,15 +111,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					if($messenger_id[$i] == $message['sender']['id'])
 					{
 						$login_res = 300; //already registred
-						
+						break;
 					}
 				}	
-			
-			if (strpos($command,'login ') === 0)
-			{
-				$login_res=1;
-				$pen_name = substr($command,6);
-				
 				
 				
 				

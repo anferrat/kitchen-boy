@@ -2,6 +2,7 @@
 $verify_token = "kitchen";
 $token = "EAAbf6i0r8GoBAAoL1EVtXv1DibWI5lRfMU7r2YkGe3w5a3FnE73f0zxkhFY3mJiE6ACuwyD9IweseZCteAZB7J10PTJXRndTtzyhsV9wLUnwDtIkc2wGfjIoxof5n379YNEgP7le8yXPbtb5sqZAcWEqcJXZBIPRhWZClnTZAMZCuZAAuNQhtwGF";
 
+/*
 use pimax\FbBotApp;
 use pimax\Messages\Message;
 use pimax\Messages\MessageButton;
@@ -14,7 +15,7 @@ use pimax\Messages\Adjustment;
 
 $bot = new FbBotApp($token);
 
-/*if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
+if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
 {
      // Webhook setup request
     echo $_REQUEST['hub_challenge'];

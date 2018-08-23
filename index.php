@@ -142,7 +142,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";
 			//$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
 			}
-			else 
+			/*else 
 			{
 				if ($login_res == 200)
 				{
@@ -155,7 +155,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				else 
 				{
 					//$bot->send(new Message($message['sender']['id'], 'Welcome to automatited notification system. My name is KithcenBoy and I glad to see you in our house. In order to start simply type: login <your name>'));
-				}
+				}*/
 			}
 
 			

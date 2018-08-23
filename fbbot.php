@@ -90,14 +90,15 @@ function nex_date($idd)
 		{
 	$n_date = $d['events'][$i]['start'];		
 		}
+	}
 	
 	return $n_date;
 }
 
-function reg_conf($idd)
+function reg_conf($idd2)
 {
     global $bot;
-	$dd = nex_date($idd);
+	$dd = nex_date($idd2);
 	$bot->send(new Message($idd, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for'.$dd.'. You will recieve reminder in that day'));
 
 	}

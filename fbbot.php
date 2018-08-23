@@ -210,7 +210,7 @@ if (mysqli_query($conn, $sql4)) {
 }
 
 
-if ($_GET['cal'] == 'ok' || $cal = 'ok')
+if ($cal = 'ok')
 {
 
 	echo json_encode(sch_gen(30));

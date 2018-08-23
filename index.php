@@ -12,6 +12,19 @@ require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 include 'fbbot.php';
 
+$sql = "SELECT ms_id FROM ".$database.".pending";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+        $ms_id_pen[$o] = $row["ms_id"];
+		$o++;
+    }
+} else {
+ die("No Data found");
+}
+
 use pimax\FbBotApp;
 use pimax\Menu\MenuItem;
 use pimax\Menu\LocalizedMenu;
@@ -71,18 +84,56 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             }
             // Handle command
 			
-			if ($command == 'login' && $ent_name == 0)
+			
+			if (strpos($command,'login ') === 0)
 			{
-				//проверка на вшивость (уже залогинились, ждете подтверждения)
-				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name, order_number) VALUES ('".$ms_id."', '".$new_name."', ".$new_order.")";
-			$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
-			$ent_name = 1;
+				$login_res=1;
+				$pen_name = substr($command,6);
+				
+				for ($i=0;$i<count($ms_id_pen);$i++)
+				{
+					if($ms_id_pen[$i] == $message['sender']['id'])
+					{
+						$login_res = 200; // request is pending
+						break;
+					}
+				
+				}
+				
+				for ($i=0;$i<count($messenger_id);$i++)
+				{
+					if($messenger_id[$i] == $message['sender']['id'])
+					{
+						$login_res = 300; //already registred
+						break;
+					}
+				
+				}
+				
+				switch($login_res)
+				{
+					case 200:
+					$bot->send(new Message($message['sender']['id'], 'Your request is pending. Wait for approval!'));
+					break;
+					
+					case 300:
+					$bot->send(new Message($message['sender']['id'], 'You are already registred.'));
+					break;
+					
+					case 1:
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name) VALUES ('".$message['sender']['id']."', '".$pen_name."')";
+					mysqli_query($conn, $sql);
+					break;
+					
+					default:
+					$bot->send(new Message($message['sender']['id'], 'Something went wrong...'));
+				}
+				
+				
+				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";
+			//$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
 			}
-			else if ($ent_name == 1){
-				$pend_name = $command;
-				$ent_name = 0;
-				$bot->send(new Message($message['sender']['id'], 'Your name'.$pend_name));
-			}
+
 			
             /* switch ($command) {
                 // When bot receive "login"

@@ -34,7 +34,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             foreach ($data['entry'][0]['messaging'] as $message)
             {
 
-$bot->send(new Message($message['sender']['id'], ‘Hi there!'));
+$bot->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

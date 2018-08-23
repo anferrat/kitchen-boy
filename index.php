@@ -148,7 +148,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				else if ($login_res == 300 && $req != 'login')
 				{
 					
-					if ($req = 'calendar')
+					if ($req == 'calendar')
 					{
 					$bot->send(new Message($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.php'));
 					

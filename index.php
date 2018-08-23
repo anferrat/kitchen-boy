@@ -95,7 +95,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
 						$login_res = 200; // request is pending
-						break;
+						
 					}
 				
 				}
@@ -105,7 +105,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					if($messenger_id[$i] == $message['sender']['id'])
 					{
 						$login_res = 300; //already registred
-						break;
+						
 					}
 				}	
 			

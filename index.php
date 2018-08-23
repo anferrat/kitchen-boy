@@ -115,14 +115,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				$pen_name = substr($command,6);
 				
 				
-
 				
-				
-				
-				
-				
-				
-					
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
 					mysqli_query($conn, $sql);
 					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
@@ -141,7 +134,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}
 				else if ($login_res == 300)
 				{
-					//main code
+					$bot->send(new Message($message['sender']['id'], 'You are already registred'));
 				} 
 				else 
 				{

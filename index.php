@@ -13,7 +13,7 @@ use pimax\Messages\Address;
 use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
 
-//$bot = new FbBotApp($token);
+$bott = new FbBotApp($token);
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
 {
@@ -31,7 +31,7 @@ $fp = fopen("myText.txt","wb");
 $content = file_get_contents("php://input");
 fwrite($fp,$content);
 fclose($fp);
-//$bot->send(new Message($message['sender']['id'], 'Hi there!'));
+$bott->send(new Message($message['sender']['id'], 'Hi there!'));
 
             }
    }

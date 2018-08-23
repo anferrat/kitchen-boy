@@ -83,7 +83,7 @@ function nex_date($idd)
 		}
 	}
 	$d = sch_gen(15);
-	$n_date ='never';
+	$n_date = 'never';
 	for($i=0;$i<count($d['events']);$i++)
 	{
 		if ($d['events'][$i]['title'] == $set_name)

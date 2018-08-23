@@ -90,16 +90,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             // Handle command
 			
 			//Login condition check
-			
+			    $login_res = 100;
 				for ($i=0;$i<count($ms_id_pen);$i++)
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
 						$login_res = 200; // request is pending
 						break;
-					}
-					else {
-						$login_res = 100;
 					}
 				
 				}
@@ -110,10 +107,6 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					{
 						$login_res = 300; //already registred
 						break;
-					}
-					else
-					{
-						$login_res = 100;
 					}
 				}	
 			

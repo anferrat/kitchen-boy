@@ -109,9 +109,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					}
 				}	
 			
-			if (strpos($command,'login ') === 0)
+			if ((strpos($command,'login ') === 0) && ($login_res!=200) && ($login_res!=300))
 			{
-				$login_res=1;
+
 				$pen_name = substr($command,6);
 				
 				
@@ -120,25 +120,14 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				
 				
 				
-				switch($login_res)
-				{
-					case 200:
-					$bot->send(new Message($message['sender']['id'], 'Your request is pending. Wait for approval!'));
-					break;
+				
+				
 					
-					case 300:
-					$bot->send(new Message($message['sender']['id'], 'You are already registred.'));
-					break;
-					
-					case 1:
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
 					mysqli_query($conn, $sql);
 					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
-					break;
 					
-					default:
-					$bot->send(new Message($message['sender']['id'], 'Something went wrong...'));
-				}
+				
 				
 				
 				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name) VALUES ('".$ms_id."', '".$new_name."')";

@@ -26,9 +26,9 @@ mysqli_query($conn, $sql);
 }
 
 
-if (isset($_GET['sub_key'])) 
+if (isset($_POST['sub_key'])) 
 {
-approve($_GET['sub_key']);
+approve($_POST['sub_key']);
 }
 
 

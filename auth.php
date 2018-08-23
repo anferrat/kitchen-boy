@@ -9,6 +9,23 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+function approve($key)
+{
+	$sql = "SELECT ms_id, name FROM ".$database.".pending WHERE key=".$key;
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+       add_client($row['ms_is'],$row['name']);
+    }
+} else {
+ die("No Data found");
+}
+$sql = "DELETE FROM ".$database.".pending WHERE key=".$key;
+mysqli_query($conn, $sql);
+}
+
+
 if (isset($_POST['sub_key'])) 
 {
 approve($_POST['sub_key']);
@@ -27,21 +44,7 @@ if ($result->num_rows > 0) {
  die("No Data found");
 }
 
-function approve($key)
-{
-	$sql = "SELECT ms_id, name FROM ".$database.".pending WHERE key=".$key;
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-       add_client($row['ms_is'],$row['name']);
-    }
-} else {
- die("No Data found");
-}
-$sql = "DELETE FROM ".$database.".pending WHERE key=".$key;
-mysqli_query($conn, $sql);
-}
+
 
 
 

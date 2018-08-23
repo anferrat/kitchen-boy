@@ -70,9 +70,23 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 continue;
             }
             // Handle command
+			$ent_name=0;
+			if ($command == 'login' && $ent_name==0)
+			{
+				//проверка на вшивость (уже залогинились, ждете подтверждения)
+				//$sql = "INSERT INTO ".$database.".pending (messenger_id, name, order_number) VALUES ('".$ms_id."', '".$new_name."', ".$new_order.")";
+			$bot->send(new Message($message['sender']['id'], 'Please, enter your name!'));
+			$ent_name==1
+			}
+			else if ($ent_name == 1){
+				$pend_name = $command;
+				$ent_name = 0;
+				$bot->send(new Message($message['sender']['id'], 'Your name'.$pend_name));
+			}
+			
             switch ($command) {
                 // When bot receive "login"
-                case 'login':
+                case 'smt':
                     $bot->send(new Message($message['sender']['id'], 'your id'.$message['sender']['id']));
                     break;
                 

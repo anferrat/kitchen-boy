@@ -40,7 +40,7 @@ fwrite($fp,$content);
 fclose($fp);*/
 $bott = new FbBotApp($token);
 //$bott->send(new Message($message['sender']['id'], 'Hi there!'));
-$bott->send(new Message(2170490766313202, 'зАЕБАЛ'));
+//$bott->send(new Message(2170490766313202, 'зАЕБАЛ'));
 
 /*
             }

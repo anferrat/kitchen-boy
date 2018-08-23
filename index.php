@@ -14,7 +14,7 @@ use pimax\Messages\Adjustment;
 
 $bot = new FbBotApp($token);
 
-if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
+/*if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token)
 {
      // Webhook setup request
     echo $_REQUEST['hub_challenge'];
@@ -32,7 +32,7 @@ $bot->send(new Message($message['sender']['id'], 'Hi there!'));
             }
    }
 }
-
+*/
 
 
 

@@ -269,7 +269,7 @@ function id_from_msid ($ms_id)
 	}
 	return $res;
 }
-add_client('232323232323','hola');
+add_client('2323232723','mike');
 function rem_client($ms_id)
 {
 	global $names;

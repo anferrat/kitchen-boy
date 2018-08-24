@@ -188,9 +188,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						
 						$bot->send(new QuickReply($message['sender']['id'], 'Try some of these commands', 
                             [
-                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 1', 'PAYLOAD 1'),
-                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 2', 'PAYLOAD 2'),
-                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 3', 'PAYLOAD 3'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'calendar', 'PAYLOAD 1'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'next', 'PAYLOAD 2'),
+                            
                             ]
                     ));
                     

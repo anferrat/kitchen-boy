@@ -222,7 +222,7 @@ if (mysqli_query($conn, $sql2)) {
     $stat=0;
 }
 $sql11 = "SELECT * FROM ".$database.".colors";
-$result11 = $conn->query($sql);
+$result11 = $conn->query($sql11);
 if ($result11->num_rows > 0) {
     // output data of each row
 	$l=0;
@@ -240,7 +240,7 @@ if ($result11->num_rows > 0) {
 echo $name_c[2];
 for ($i=0;$i<count($key_c);$i++)
 {
-	if ($name_c[$i] == 'na')
+	if ($name_c[$i] === 'na')
 	{
 		$ins_point = $i;
 		break;

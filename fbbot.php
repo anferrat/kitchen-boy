@@ -240,7 +240,7 @@ if ($result11->num_rows > 0) {
 
 for ($i=0;$i<count($key_c);$i++)
 {
-	if ($name_c == 'na')
+	if ($name_c[$i] == 'na')
 	{
 		$ins_point = $i;
 		break;

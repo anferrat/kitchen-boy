@@ -1,7 +1,7 @@
 <?php
 include 'fbbot.php';
-$oo = nex_date('2170490766313202');
-se($oo);
+
+add_client('232323232323','hola');
 note_gen();
 
 ?>

@@ -376,7 +376,7 @@ function rem_client($ms_id)
 		
 	$rem_order = $order_numbers[id_from_msid($ms_id)];
 	$del_item_num = id_from_msid($ms_id);
-	$rem_name = $names['$del_item_num'];
+	$rem_name = $names[$del_item_num];
 	array_splice($messenger_id,$del_item_num,1);
 	array_splice($names,$del_item_num,1);
 	array_splice($order_numbers,$del_item_num,1);

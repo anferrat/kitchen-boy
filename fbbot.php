@@ -178,9 +178,16 @@ end =>''))
 	$names_gen = $names;
 	$order_gen = $order_numbers;
 	
+
+	
+	
 for ($i=0;$i<$days;$i++)
 {
+	$color_array = getcolbyname($sch['events'][$i]['title']);
 	$sch['events'][$i]['title'] = $names_gen[mini($order_gen)];
+	$sch['events'][$i]['backgroundColor'] = $color_array['bg'];
+	$sch['events'][$i]['borderColor'] = $color_array['bd'];
+	$sch['events'][$i]['textColor'] = $color_array['text'];
 	$sch['events'][$i]['start'] = substr(date("c",$t),0,10);
 	$sch['events'][$i]['end'] = substr(date("c",$t),0,10);
     $t = $t + 86400;
@@ -190,6 +197,41 @@ for ($i=0;$i<$days;$i++)
 //$sch['header']['center']='';
 //$sch['header']['right']='';
 	return $sch;
+}
+
+
+function getcolbyname ($name_q)
+{
+global $conn;
+
+$sq = "SELECT * FROM ".$database.".colors";
+$resul = $conn->query($sq);
+if ($resul->num_rows > 0) {
+    // output data of each row
+	$l=0;
+    while($row = $resul->fetch_assoc()) {
+        $key_c[$l] = $row["key"];
+		$name_c[$l] = $row["name"];
+		$bg[$l] = $row["bg"];
+		$bd[$l] = $row["bd"];
+		$text[$l] = $row["text"];
+		$l++;
+    }
+} else {
+ die($sql);
+}
+for($i=0;$i<count($key_c);$i++)
+{
+	if ($name_c[$i] === $name_q)
+	{
+		$col_arr['bg'] = $bg[$i];
+		$col_arr['bd'] = $bd[$i];
+		$col_arr['text'] = $text[$i];
+		break;
+	}
+}
+
+return $col_arr;
 }
 
 function add_client($ms_id,$new_name)
@@ -269,7 +311,7 @@ function id_from_msid ($ms_id)
 	}
 	return $res;
 }
-add_client('2323232723','mike');
+
 function rem_client($ms_id)
 {
 	global $names;

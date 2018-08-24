@@ -220,6 +220,34 @@ if (mysqli_query($conn, $sql2)) {
 } else {
     $stat=0;
 }
+$sql = "SELECT * FROM ".$database.".colors";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+        $key_c[$o] = $row["key"];
+		$name_c[$o] = $row["name"];
+		$bg[$o] = $row["bg"];
+		$bd[$o] = $row["bd"];
+		$text[$o] = $row["text"];
+		$o++;
+    }
+} else {
+ die("No Data found");
+}
+
+for ($i=0;$i<count($key_c);$i++)
+{
+	if ($name_c == 'na')
+	{
+		$ins_point = $i;
+		break;
+	}
+}
+$sql = "UPDATE `".$database."`.`colors` SET `name` = '".$new_name."' WHERE (`key` = '".$ins_point."')";
+$rr = mysqli_query($conn, $sql) or die($sql);
+
 $names[count($names)] = $new_name;
 $messenger_id[count($messenger_id)] = $ms_id;
 $order_numbers[count($order_numbers)] = $new_order;

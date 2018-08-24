@@ -15,17 +15,22 @@ $(function() {
 
   // page is now ready, initialize the calendar...
 
-  $('#calendar').fullCalendar(  <?php
- 
+  $('#calendar').fullCalendar({
+    
+	eventSources: <?php
+  $cal = 'ok';
   include 'fbbot.php';
-  echo json_encode(sch_gen(30));
+  echo json_encode(cal_data(sch_gen(30)));
   ?>
-  )
+	
+	
+  })
 
 });
 </script>
   </head>
   <body>
+  
 <div id='calendar'></div>
   </body>
 </html>

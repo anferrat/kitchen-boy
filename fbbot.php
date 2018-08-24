@@ -183,43 +183,68 @@ end =>''))
 	
 for ($i=0;$i<$days;$i++)
 {
-	$color_array = getcolbyname($sch['events'][$i]['title']);
 	$sch['events'][$i]['title'] = $names_gen[mini($order_gen)];
-	$sch['events'][$i]['backgroundColor'] = $color_array['bg'];
-	$sch['events'][$i]['borderColor'] = $color_array['bd'];
-	$sch['events'][$i]['textColor'] = $color_array['text'];
 	$sch['events'][$i]['start'] = substr(date("c",$t),0,10);
 	$sch['events'][$i]['end'] = substr(date("c",$t),0,10);
     $t = $t + 86400;
 	$order_gen = order_push($order_gen);
 }
-//$sch['header']['left']='title';
-//$sch['header']['center']='';
-//$sch['header']['right']='';
+
 	return $sch;
+}
+
+function cal_data($inp_ar)
+{
+	global $names;
+	$calendar = array(
+	array (
+	events => array (
+	array(
+	title=>"",
+	start=>"",
+	end=>""
+	)
+	),
+	backgroundColor => "",
+	borderColor => "",
+	textColor=>""
+	
+	)
+	);
+
+	for ($j=0;$j<count($names);$j++)
+	{
+		$s=0;
+	for ($i=0;$i<count($inp_ar['events']);$i++)
+	{
+		if ($inp_ar['events'][$i]['title'] == $names[$j])
+		{
+			
+			$calendar[$j]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[$j]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$j]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$s++;
+		}
+	}
+	$col_ar = getcolbyname($names[$j]);
+	$calendar[$j]['backgroundColor'] = $col_ar['bg'];
+	$calendar[$j]['borderColor'] = $col_ar['bd'];
+	$calendar[$j]['textColor'] = $col_ar['text'];
+	
+	
+	}
+	return $calendar;
 }
 
 
 function getcolbyname ($name_q)
 {
-global $conn;
+global $key_c;
+global $name_c;
+global $bg;
+global $bd;
+global $text;
 
-$sq = "SELECT * FROM ".$database.".colors";
-$resul = $conn->query($sq);
-if ($resul->num_rows > 0) {
-    // output data of each row
-	$l=0;
-    while($row = $resul->fetch_assoc()) {
-        $key_c[$l] = $row["key"];
-		$name_c[$l] = $row["name"];
-		$bg[$l] = $row["bg"];
-		$bd[$l] = $row["bd"];
-		$text[$l] = $row["text"];
-		$l++;
-    }
-} else {
- die($sql);
-}
 for($i=0;$i<count($key_c);$i++)
 {
 	if ($name_c[$i] === $name_q)
@@ -232,6 +257,7 @@ for($i=0;$i<count($key_c);$i++)
 }
 
 return $col_arr;
+
 }
 
 function add_client($ms_id,$new_name)

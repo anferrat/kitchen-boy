@@ -225,14 +225,14 @@ $sql11 = "SELECT * FROM ".$database.".colors";
 $result11 = $conn->query($sql);
 if ($result11->num_rows > 0) {
     // output data of each row
-	$o=0;
+	$l=0;
     while($row = $result11->fetch_assoc()) {
-        $key_c[$o] = $row["key"];
-		$name_c[$o] = $row["name"];
-		$bg[$o] = $row["bg"];
-		$bd[$o] = $row["bd"];
-		$text[$o] = $row["text"];
-		$o++;
+        $key_c[$l] = $row["key"];
+		$name_c[$l] = $row["name"];
+		$bg[$l] = $row["bg"];
+		$bd[$l] = $row["bd"];
+		$text[$l] = $row["text"];
+		$l++;
     }
 } else {
  die($sql);
@@ -269,7 +269,7 @@ function id_from_msid ($ms_id)
 	}
 	return $res;
 }
-
+add_client('232323232323','hola');
 function rem_client($ms_id)
 {
 	global $names;

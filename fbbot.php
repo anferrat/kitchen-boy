@@ -41,6 +41,22 @@ if ($result->num_rows > 0) {
  die("No Data found");
 }
 
+$sq = "SELECT * FROM ".$database.".colors";
+$resul = $conn->query($sq);
+if ($resul->num_rows > 0) {
+    // output data of each row
+	$l=0;
+    while($row = $resul->fetch_assoc()) {
+        $key_c[$l] = $row["key"];
+		$name_c[$l] = $row["name"];
+		$bg[$l] = $row["bg"];
+		$bd[$l] = $row["bd"];
+		$text[$l] = $row["text"];
+		$l++;
+    }
+} else {
+ die($sql);
+}
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 use pimax\FbBotApp;

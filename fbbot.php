@@ -429,7 +429,7 @@ if ($result11->num_rows > 0) {
 
 for ($i=0;$i<count($key_c);$i++)
 {
-	if ($name_c[$i] === $rem_name)
+	if ($name_c[$i] == $rem_name)
 	{
 		$ins_point = $i;
 		break;

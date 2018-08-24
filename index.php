@@ -148,7 +148,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}
 				else if ($login_res == 100 && $req != 'login')
 				{
-					$bot->send(new Message($message['sender']['id'], 'Hi, my name is KithcenBoy. In order to start simply type: login <your name>'));
+					$bot->send(new Message($message['sender']['id'], 'Hi, my name is KitchenBoy. In order to start simply type: login <your name>'));
 				}
 				else if ($login_res == 300 && $req != 'login')
 				{
@@ -170,6 +170,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						}
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$usname."', 'logout', 0)";
 					mysqli_query($conn, $sql);
+					$bot->send(new Message($message['sender']['id'], 'Request to logout has been sent.'));
 					}
 					else
 					{

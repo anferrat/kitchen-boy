@@ -181,10 +181,19 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					{
 						$next_date = nex_date($message['sender']['id']);
 						$day_w = date("l",strtotime($next_date));
-						$bot->send(new Message($message['sender']['id'], 'Your next kitchen day is scheduled for '.$day_w.' '.$next_date.'. Good luck!'));
+						$bot->send(new Message($message['sender']['id'], 'Your next kitchen day is scheduled for '.$day_w.', '.$next_date.'. Good luck!'));
 					}
 					else
 					{
+						
+						$bot->send(new QuickReply($message['sender']['id'], 'Try some of these commands', 
+                            [
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 1', 'PAYLOAD 1'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 2', 'PAYLOAD 2'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 3', 'PAYLOAD 3'),
+                            ]
+                    ));
+                    break;
 						
 					}
 				}

@@ -2,6 +2,7 @@
 $verify_token = "kitchen";
 $token = "EAAbf6i0r8GoBAAoL1EVtXv1DibWI5lRfMU7r2YkGe3w5a3FnE73f0zxkhFY3mJiE6ACuwyD9IweseZCteAZB7J10PTJXRndTtzyhsV9wLUnwDtIkc2wGfjIoxof5n379YNEgP7le8yXPbtb5sqZAcWEqcJXZBIPRhWZClnTZAMZCuZAAuNQhtwGF";
 
+date_default_timezone_set("America/Edmonton");
 if (file_exists(__DIR__.'/config.php')) {
     $config = include __DIR__.'/config.php';
     $verify_token = $config['verify_token'];

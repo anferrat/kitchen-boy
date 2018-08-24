@@ -202,6 +202,7 @@ function add_client($ms_id,$new_name)
 	global $password;
 	global $database;
 	global $conn;
+	
 $stat;
 for ($i=0;$i<count($names);$i++)
 {
@@ -220,12 +221,12 @@ if (mysqli_query($conn, $sql2)) {
 } else {
     $stat=0;
 }
-$sql = "SELECT * FROM ".$database.".colors";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
+$sql11 = "SELECT * FROM ".$database.".colors";
+$result11 = $conn->query($sql);
+if ($result11->num_rows > 0) {
     // output data of each row
 	$o=0;
-    while($row = $result->fetch_assoc()) {
+    while($row = $result11->fetch_assoc()) {
         $key_c[$o] = $row["key"];
 		$name_c[$o] = $row["name"];
 		$bg[$o] = $row["bg"];

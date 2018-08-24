@@ -237,7 +237,7 @@ if ($result11->num_rows > 0) {
 } else {
  die($sql);
 }
-
+echo $name_c[2];
 for ($i=0;$i<count($key_c);$i++)
 {
 	if ($name_c[$i] == 'na')

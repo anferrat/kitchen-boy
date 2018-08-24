@@ -186,9 +186,9 @@ for ($i=0;$i<$days;$i++)
     $t = $t + 86400;
 	$order_gen = order_push($order_gen);
 }
-$sch['header']['left']='title';
-$sch['header']['center']='';
-$sch['header']['right']='';
+//$sch['header']['left']='title';
+//$sch['header']['center']='';
+//$sch['header']['right']='';
 	return $sch;
 }
 

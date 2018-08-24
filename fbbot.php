@@ -431,11 +431,11 @@ for ($i=0;$i<count($key_c);$i++)
 {
 	if ($name_c[$i] == $rem_name)
 	{
-		$ins_point = $i;
+		$del_point = $i;
 		break;
 	}
 }
-$sql = "UPDATE `".$database."`.`colors` SET `name` = 'na' WHERE (`key` = '".$ins_point."')";
+$sql = "UPDATE `".$database."`.`colors` SET `name` = 'na' WHERE (`key` = '".$del_point."')";
 $rr = mysqli_query($conn, $sql) or die($sql);
 	
 	

@@ -327,7 +327,7 @@ if ($result11->num_rows > 0) {
 } else {
  die($sql);
 }
-echo $name_c[2];
+
 for ($i=0;$i<count($key_c);$i++)
 {
 	if ($name_c[$i] === 'na')
@@ -376,6 +376,7 @@ function rem_client($ms_id)
 		
 	$rem_order = $order_numbers[id_from_msid($ms_id)];
 	$del_item_num = id_from_msid($ms_id);
+	$rem_name = $names['$del_item_num'];
 	array_splice($messenger_id,$del_item_num,1);
 	array_splice($names,$del_item_num,1);
 	array_splice($order_numbers,$del_item_num,1);
@@ -408,6 +409,35 @@ if (mysqli_query($conn, $sql4)) {
 } else {
     $stat=0;
 }
+	
+	$sql11 = "SELECT * FROM ".$database.".colors";
+$result11 = $conn->query($sql11);
+if ($result11->num_rows > 0) {
+    // output data of each row
+	$l=0;
+    while($row = $result11->fetch_assoc()) {
+        $key_c[$l] = $row["key"];
+		$name_c[$l] = $row["name"];
+		$bg[$l] = $row["bg"];
+		$bd[$l] = $row["bd"];
+		$text[$l] = $row["text"];
+		$l++;
+    }
+} else {
+ die($sql);
+}
+
+for ($i=0;$i<count($key_c);$i++)
+{
+	if ($name_c[$i] === $rem_name)
+	{
+		$ins_point = $i;
+		break;
+	}
+}
+$sql = "UPDATE `".$database."`.`colors` SET `name` = 'na' WHERE (`key` = '".$ins_point."')";
+$rr = mysqli_query($conn, $sql) or die($sql);
+	
 	
 }
 

@@ -234,7 +234,7 @@ if ($result->num_rows > 0) {
 		$o++;
     }
 } else {
- die("No Data found");
+ die($sql);
 }
 
 for ($i=0;$i<count($key_c);$i++)

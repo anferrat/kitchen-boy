@@ -17,7 +17,7 @@ $(function() {
 
   $('#calendar').fullCalendar({
     
-	eventSources: <?php
+  eventSources: <?php
   $cal = 'ok';
   include 'fbbot.php';
   echo json_encode(cal_data(sch_gen(30)));

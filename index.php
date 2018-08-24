@@ -128,6 +128,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				$req = 'logout';
 			}
 			
+			if ($command == 'next')
+			{
+				$req = 'next';
+			}
+			
 // command action gen
 			if (!empty($command))
 				{
@@ -171,6 +176,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$usname."', 'logout', 0)";
 					mysqli_query($conn, $sql);
 					$bot->send(new Message($message['sender']['id'], 'Request to logout has been sent.'));
+					}
+					else if ($req == 'next')
+					{
+						$next_date = nex_date($message['sender']['id']);
+						$bot->send(new Message($message['sender']['id'], 'Your next kitchen day is scheduled for '.$next_date.'. Good luck!'));
 					}
 					else
 					{

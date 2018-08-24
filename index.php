@@ -123,6 +123,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				$req = 'calendar';
 			}
 			
+			if ($command == 'logout')
+			{
+				$req = 'logout';
+			}
+			
 // command action gen
 			if (!empty($command))
 				{
@@ -152,6 +157,19 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					{
 					$bot->send(new Message($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.php'));
 					
+					}
+					else if ($req == 'logout')
+					{
+						for ($i=0;$i<count($messenger_id);$i++)
+						{
+							if($messenger_id[$i] == $message['sender']['id'])
+							{
+								$usname=$names[$i];
+								break;
+							}
+						}
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$usname."', 'logout', 0)";
+					mysqli_query($conn, $sql);
 					}
 					else
 					{

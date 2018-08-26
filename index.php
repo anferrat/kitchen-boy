@@ -158,7 +158,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}
 				else if ($login_res == 100 && $req != 'login')
 				{
-					$bot->send(new Message($message['sender']['id'], 'Hi, my name is KitchenBoy. In order to start simply type: login <your name>'));
+					$bot->send(new Message($message['sender']['id'], 'Welcome to automatic schedule generator. The system is designed to keep you updated about current cleaning schedule. In order to start, please type login <your name>.'));
 				}
 				else if ($login_res == 300 && $req != 'login')
 				{

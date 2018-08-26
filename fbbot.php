@@ -151,7 +151,7 @@ function reg_conf($idd2)
 {
     global $bot;
 	$dd = nex_date($idd2);
-	$bot->send(new Message($idd2, 'Your login request has been approved. You will recieve reminders when its your day to clean. Your next duty day is scheduled for '.$dd.'. You will recieve reminder in that day'));
+	$bot->send(new Message($idd2, 'Your login request has been approved. If you want to see the current schedule, type calendar. Your next duty day is scheduled for '.$dd.'. You will recieve reminder in that day'));
 
 	}
 	

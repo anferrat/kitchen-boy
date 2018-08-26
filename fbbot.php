@@ -532,6 +532,6 @@ $rr = mysqli_query($conn, $sql) or die($sql);
 	return $stat;
 }
 
-
+echo date('e');
 mysqli_close ($conn);
 ?>

@@ -92,9 +92,8 @@ function se($mess)
 	$bot->send(new Message('2170490766313202', $mess));
 }
 
-function gr_bl_bin()
+function gr_bl_bin($t)
 {
-	$t = time();
 	if (date("N",$t) == 1)
 	{
 		return true;
@@ -105,9 +104,8 @@ function gr_bl_bin()
 	}
 }
 
-function black_bin()
+function black_bin($t)
 {
-	$t = time();
 	$const_date = 1534273200;
 	$rr = false;
 	while (($t+1209600)>=$const_date)
@@ -180,12 +178,12 @@ function note_gen()
 	
 	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Today is your lucky day to clean the kitchen. Make sure you dont forget it'));
 	
-	if (gr_bl_bin())
+	if (gr_bl_bin(time()))
 	{
 		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push GREEN and BLUE bins to the road tonight'));
 	}
 	
-	if (black_bin())
+	if (black_bin(time()))
 	{
 		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push BLACK bin to the road tonight'));
 	}
@@ -241,9 +239,6 @@ end =>''))
 	$names_gen = $names;
 	$order_gen = $order_numbers;
 	
-
-	
-	
 for ($i=0;$i<$days;$i++)
 {
 	$sch['events'][$i]['title'] = $names_gen[mini($order_gen)];
@@ -251,6 +246,24 @@ for ($i=0;$i<$days;$i++)
 	$sch['events'][$i]['end'] = substr(date("c",$t),0,10);
     $t = $t + 86400;
 	$order_gen = order_push($order_gen);
+}
+$t = time();
+for ($i=0;$i<$days;$i++)
+{
+	$uy = count($sch['events']);
+	if (gr_bl_bin($t))
+	{
+	$sch['events'][$uy]['title'] = 'Push Green and Blue bins';
+	$sch['events'][$uy]['start'] = substr(date("c",$t),0,10);
+	$sch['events'][$uy]['end'] = substr(date("c",$t),0,10);
+	}
+	if (black_bin($t))
+	{
+	$sch['events'][$uy]['title'] = 'Push Black bin';
+	$sch['events'][$uy]['start'] = substr(date("c",$t),0,10);
+	$sch['events'][$uy]['end'] = substr(date("c",$t),0,10);
+	}
+	$t = $t + 86400;
 }
 
 	return $sch;
@@ -296,6 +309,35 @@ function cal_data($inp_ar)
 	
 	
 	}
+		$s=0;
+		$ii = count($calendar);
+	for ($i=0;$i<count($inp_ar['events']);$i++)
+	{
+		if ($inp_ar['events'][$i]['title'] == 'Push Green and Blue bins')
+		{
+			
+			$calendar[$ii]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$ii]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$s++;
+		}
+		if ($inp_ar['events'][$i]['title'] == 'Push Black bin')
+		{
+			
+			$calendar[$ii]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$ii]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$s++;
+		}
+	}
+	$calendar[$ii]['backgroundColor'] = 'black';
+	$calendar[$ii]['borderColor'] = 'white';
+	$calendar[$ii]['textColor'] = 'white';
+	
+	
+
+	
+	
 	return $calendar;
 }
 

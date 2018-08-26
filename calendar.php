@@ -16,7 +16,7 @@ $(function() {
   // page is now ready, initialize the calendar...
 
   $('#calendar').fullCalendar({
-    
+    firstDay: 1,
   eventSources: <?php
   $cal = 'ok';
   include 'fbbot.php';

@@ -131,6 +131,7 @@ function nex_date($idd)
 		if ($messenger_id[$i] == $idd)
 		{
 			$set_name = $names[$i];
+			break;
 		}
 	}
 	$d = sch_gen(15);

@@ -113,25 +113,30 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}	
 			
 		// command condition check	generate $req with type of command
-			if ((strpos($command,'login ') === 0) )
+			if ((strpos(strtolower($command),'login ') === 0) )
 			{
 				$req = 'login';
 			}
 			
-			if ($command == 'calendar')
+			if (strtolower($command) == 'calendar')
 			{
 				$req = 'calendar';
 			}
 			
-			if ($command == 'logout')
+			if (strtolower ($command) == 'logout')
 			{
 				$req = 'logout';
 			}
 			
-			if ($command == 'next')
+			if (strtolower($command) == 'next')
 			{
 				$req = 'next';
 			}
+			if (strtolower($command) == 'remind')
+			{
+				$req = 'remind';
+			}
+			
 			
 // command action gen
 			if (!empty($command))
@@ -183,6 +188,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						$day_w = date("l",strtotime($next_date));
 						$next_date = date("F",strtotime($next_date)).' '.date("j",strtotime($next_date));
 						$bot->send(new Message($message['sender']['id'], 'Your next kitchen day is scheduled for '.$day_w.', '.$next_date.'. Good luck!'));
+					}
+					else if ($req == 'remind')
+					{
+						note_gen();
+						$bot->send(new Message($message['sender']['id'], 'Additional reminder has been sent to the person on duty.'));
 					}
 					else
 					{

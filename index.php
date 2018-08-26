@@ -143,7 +143,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				{
 					if ($login_res == 200 && $req == 'login')
 				{
-					$bot->send(new Message($message['sender']['id'], 'You have a pending login request'));
+					$bot->send(new Message($message['sender']['id'], 'You have a pending request'));
 				}
 				else if ($login_res == 300 && $req == 'login')
 				{
@@ -154,7 +154,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					$pen_name = substr($command,6);
 					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
 					mysqli_query($conn, $sql);
-					$bot->send(new Message($message['sender']['id'], 'Login successfull. You will recieve approval notification shortly.'));
+					$bot->send(new Message($message['sender']['id'], 'Login request sent. You will recieve approval notification shortly.'));
 				}
 				else if ($login_res == 100 && $req != 'login')
 				{

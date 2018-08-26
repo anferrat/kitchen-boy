@@ -92,6 +92,37 @@ function se($mess)
 	$bot->send(new Message('2170490766313202', $mess));
 }
 
+function gr_bl_bin()
+{
+	$t = time();
+	if (date("N",$t) == 1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function black_bin()
+{
+	$t = time();
+	$const_date = 1534273200;
+	$rr = false;
+	while (($t+1209600)>=$const_date)
+	{
+		if (substr(date("c",$t),0,10) == '2018-08-14')
+		{
+			$rr = true;
+			 
+		}
+		$t=$t - 1209600;
+	}
+	return $rr;
+	
+}
+
 function nex_date($idd)
 {
 	global $names;
@@ -148,6 +179,16 @@ function note_gen()
 	}
 	
 	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Today is your lucky day to clean the kitchen. Make sure you dont forget it'));
+	
+	if (gr_bl_bin())
+	{
+		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push GREEN and BLUE bins to the road tonight'));
+	}
+	
+	if (black_bin())
+	{
+		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push BLACK bin to the road tonight'));
+	}
 	
 }
 

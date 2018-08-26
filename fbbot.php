@@ -177,16 +177,16 @@ function note_gen()
 		}
 	}
 	
-	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Today is your lucky day to clean the kitchen. Make sure you dont forget it'));
+	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Today is your lucky day to clean the kitchen. Make sure you dont forget it.'));
 	
 	if (gr_bl_bin(time()))
 	{
-		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push GREEN and BLUE bins to the road tonight'));
+		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Push GREEN and BLUE bins to the road tonight.'));
 	}
 	
 	if (black_bin(time()))
 	{
-		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Make sure you push BLACK bin to the road tonight'));
+		$bot->send(new Message($messenger_id[$recipient_not_id], 'Tomorrow is garbage day. Push BLACK bin to the road tonight.'));
 	}
 	
 }

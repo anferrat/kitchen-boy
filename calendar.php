@@ -17,6 +17,7 @@ $(function() {
 
   $('#calendar').fullCalendar({
     firstDay: 1,
+	showNonCurrentDates: false,
   eventSources: <?php
   $cal = 'ok';
   include 'fbbot.php';

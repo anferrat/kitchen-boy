@@ -140,6 +140,19 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'today';
 			}
+			if (strpos(strtolower($command),'dish') !== false)
+			{
+				if (strpos(strtolower($command),'dish ') === 0)
+				{
+					$req = 'dish';
+					$dish_name = substr($command,5);
+				}
+				else
+				{
+					$req = 'dish_wrong';
+				}
+			}
+			
 			
 			
 // command action gen
@@ -212,7 +225,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                                 new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Calendar', 'PAYLOAD 1'),
                                 new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Next', 'PAYLOAD 2'),
 								new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Remind', 'PAYLOAD 3'),
-
+								new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Today', 'PAYLOAD 4'),
                             
                             ]
                     ));

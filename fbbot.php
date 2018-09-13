@@ -152,7 +152,7 @@ function wash_gen($days)
 	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
 	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
 	$sch_w['events'][0]['end'] = substr(date("c",($days*86400 + $t)),0,10);
-	$sch_w['events'][1]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][1]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
 	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
 	$sch_w['events'][1]['end'] = substr(date("c",($days*86400 + $t)),0,10);
 	}
@@ -160,10 +160,10 @@ function wash_gen($days)
 	{
 	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
 	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][0]['end'] = substr(date("c",strtotime('next Sunday')),0,10);
-	$sch_w['events'][1]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][0]['end'] = substr(date("c",strtotime('next Monday')),0,10);
+	$sch_w['events'][1]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
 	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][1]['end'] = substr(date("c",strtotime('next Sunday')),0,10);
+	$sch_w['events'][1]['end'] = substr(date("c",strtotime('next Monday')),0,10);
 	$k = $k - (strtotime('next Sunday') - $t);
 	$t = strtotime('next Sunday')+86400;
 	$h = 2;
@@ -174,11 +174,11 @@ function wash_gen($days)
 	{
 	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
 	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
 	$h++;
-	$sch_w['events'][$h]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][$h]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
 	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
 	$h++;
 	$t = strtotime('next Sunday',$t)+86400;
 	$k = $k - 86400*7;
@@ -190,11 +190,11 @@ function wash_gen($days)
 	{
 	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
 	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
 	$h++;
 	$sch_w['events'][$h]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
 	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
 	}
 	
 	
@@ -383,7 +383,7 @@ for ($i=0;$i<$days;$i++)
 	return $sch;
 }
 
-function cal_data($inp_ar)
+function cal_data($inp_ar, $inp_wash)
 {
 	global $names;
 	$calendar = array(

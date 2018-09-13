@@ -21,7 +21,7 @@ $(function() {
   eventSources: <?php
   $cal = 'ok';
   include 'fbbot.php';
-  echo json_encode(cal_data(sch_gen(30)));
+  echo json_encode(cal_data(sch_gen(30),wash_gen(30)));
   ?>
 	
 	

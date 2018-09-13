@@ -450,14 +450,14 @@ function id_from_msid ($ms_id)
 	}
 	return $res;
 }
-function ms_id_from_name ($name)
+function ms_id_from_name ($name_id)
 {
 	global $names;
 	global $messenger_id;
 	$res_id = 0;
 	for ($i=0;$i<count($names);$i++)
 	{
-		if ($names[$i]== $name)
+		if ($names[$i] == $name_id)
 		{
 			$res_id = $messenger_id[$i];
 			break;

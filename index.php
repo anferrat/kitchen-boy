@@ -225,7 +225,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					{
 						if (ms_id_from_name($dish_name) != 0)
 						{
-							$bot->send(new Message(ms_id_from_name($dish_name), 'You have dishes in the sink. Please wash them ASAP.'))
+							$bot->send(new Message(ms_id_from_name($dish_name), 'You have dishes in the sink. Please wash them ASAP.'));
 							$bot->send(new Message($message['sender']['id'], 'Dish reminder has been sent.'));;
 						}
 						else

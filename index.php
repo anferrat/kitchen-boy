@@ -136,6 +136,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'remind';
 			}
+			if (strtolower($command) == 'today')
+			{
+				$req = 'today';
+			}
 			
 			
 // command action gen
@@ -193,6 +197,12 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					{
 						note_gen();
 						$bot->send(new Message($message['sender']['id'], 'Additional reminder has been sent to the person on duty.'));
+					}
+					else if ($req == 'today')
+					{
+						$today_cl = sch_gen (1);
+						
+						$bot->send(new Message($message['sender']['id'], $today_cl['events'][0]['title']));
 					}
 					else
 					{

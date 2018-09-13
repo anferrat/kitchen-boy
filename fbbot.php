@@ -40,7 +40,14 @@ if ($result->num_rows > 0) {
 } else {
  die("No Data found");
 }
+/*
+Major data from index table
 
+$messenger_id  : array   - messenger id's for sending messengers to users
+$names         : array   - names of all people on duty
+$order_numbers : array   - order numbers of people. 
+
+*/
 $sq = "SELECT * FROM ".$database.".colors";
 $resul = $conn->query($sq);
 if ($resul->num_rows > 0) {
@@ -156,7 +163,7 @@ function reg_conf($idd2)
 
 	}
 	
-	function rem_conf($idd2)
+function rem_conf($idd2)
 {
 	global $bot;
 	$bot->send(new Message($idd2, 'You have been removed from the kitchen schedule'));
@@ -443,7 +450,21 @@ function id_from_msid ($ms_id)
 	}
 	return $res;
 }
-
+function ms_id_from_name ($name)
+{
+	global $names;
+	global $messenger_id;
+	$res_id = 0;
+	for ($i=0;$i<count($names);$i++)
+	{
+		if ($names[$i]== $name)
+		{
+			$res_id = $messenger_id[$i];
+			break;
+		}
+	}
+	return $res_id;
+}
 function rem_client($ms_id)
 {
 	global $names;

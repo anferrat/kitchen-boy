@@ -217,7 +217,24 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						
 						$bot->send(new Message($message['sender']['id'],$today_cl['events'][0]['title'].' cleans kitchen today'));
 					}
-					else
+					else if ($req == 'dish_wrong')
+					{
+						$bot->send(new Message($message['sender']['id'], 'Invalid format. Type: dish <Name of person>'));
+					}
+					else if ($req == 'dish')
+					{
+						if (ms_id_from_name($dish_name) != 0)
+						{
+							$bot->send(new Message(ms_id_from_name($dish_name), 'You have dishes in the sink. Please wash them ASAP.'))
+							$bot->send(new Message($message['sender']['id'], 'Dish reminder has been sent.'));;
+						}
+						else
+						{
+						$bot->send(new Message($message['sender']['id'], 'Name has not been found. Make sure you spell it right.'));	
+						}
+					}
+					
+				else
 					{
 						
 						$bot->send(new QuickReply($message['sender']['id'], 'Try some of these commands', 

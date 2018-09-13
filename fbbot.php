@@ -1,7 +1,6 @@
 <?php
 $verify_token = "kitchen";
 $token = "EAAbf6i0r8GoBAAoL1EVtXv1DibWI5lRfMU7r2YkGe3w5a3FnE73f0zxkhFY3mJiE6ACuwyD9IweseZCteAZB7J10PTJXRndTtzyhsV9wLUnwDtIkc2wGfjIoxof5n379YNEgP7le8yXPbtb5sqZAcWEqcJXZBIPRhWZClnTZAMZCuZAAuNQhtwGF";
-
 date_default_timezone_set("America/Edmonton");
 if (file_exists(__DIR__.'/config.php')) {
     $config = include __DIR__.'/config.php';
@@ -26,6 +25,9 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+
+
+
 $sql = "SELECT messenger_id, name, order_number FROM ".$database.".index";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -40,6 +42,8 @@ if ($result->num_rows > 0) {
 } else {
  die("No Data found");
 }
+
+
 /*
 Major data from index table
 
@@ -48,6 +52,37 @@ $names         : array   - names of all people on duty
 $order_numbers : array   - order numbers of people. 
 
 */
+
+$sql = "SELECT * FROM ".$database.".washroom_basement";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+        $wash_b_names[$o] = $row["name"];
+		$wash_b_orders[$o] = $row["order"];
+		$o++;
+    }
+} else {
+ die("No Data found");
+}
+
+$sql = "SELECT * FROM ".$database.".washroom_upstairs";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+        $wash_u_names[$o] = $row["name"];
+		$wash_u_orders[$o] = $row["order"];
+		$o++;
+    }
+} else {
+ die("No Data found");
+}
+
+
+
 $sq = "SELECT * FROM ".$database.".colors";
 $resul = $conn->query($sq);
 if ($resul->num_rows > 0) {
@@ -93,10 +128,81 @@ if (!empty($_REQUEST['local'])) {
     $res = $bot->send($message);
     echo '<pre>', print_r($res), '</pre>';
 }
-function se($mess)
+
+
+
+function wash_gen($days)
 {
-	global $bot;
-	$bot->send(new Message('2170490766313202', $mess));
+	global $wash_u_names;
+	global $wash_b_names;
+	global $wash_b_orders;
+	global $wash_u_orders;
+	
+	$names_gen_b = $wash_b_names;
+	$orders_gen_b = $wash_b_orders;
+	$names_gen_u = $wash_u_names;
+	$orders_gen_u = $wash_u_orders;
+	
+	$t = time();
+	
+
+	$k = $days*86400;
+	if ($days*86400 + $t < strtotime('next Sunday'))
+	{
+	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][0]['end'] = substr(date("c",($days*86400 + $t)),0,10);
+	$sch_w['events'][1]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][1]['end'] = substr(date("c",($days*86400 + $t)),0,10);
+	}
+	else
+	{
+	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][0]['end'] = substr(date("c",strtotime('next Sunday')),0,10);
+	$sch_w['events'][1]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][1]['end'] = substr(date("c",strtotime('next Sunday')),0,10);
+	$k = $k - (strtotime('next Sunday') - $t);
+	$t = strtotime('next Sunday')+86400;
+	$h = 2;
+	$orders_gen_u = order_push($orders_gen_u);
+	$orders_gen_b = order_push($orders_gen_b);
+	
+	while ($k > 86400*7)
+	{
+	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$h++;
+	$sch_w['events'][$h]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$h++;
+	$t = strtotime('next Sunday',$t)+86400;
+	$k = $k - 86400*7;
+	$orders_gen_u = order_push($orders_gen_u);
+	$orders_gen_b = order_push($orders_gen_b);
+	}
+	
+	if ($k > 86400)
+	{
+	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	$h++;
+	$sch_w['events'][$h]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
+	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
+	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Sunday',$t)),0,10);
+	}
+	
+	
+	
+	}
+	
+	
+	return $sch_w;
 }
 
 function gr_bl_bin($t)
@@ -198,7 +304,7 @@ function note_gen()
 	
 }
 
-function mini($arr)
+function mini($arr)  // returns number of smallest int element in array
 {
 	$k = 0;
 	for ($i=0;$i<count($arr);$i++)

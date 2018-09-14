@@ -74,13 +74,13 @@ $wash_b_orders=order_push($wash_b_orders);
 
 for ($i=0;$i<count($wash_u_orders);$i++)
 {
-$sql = "UPDATE `".$database."`.`washroom_upstairs` SET `order` = '".$wash_u_orders[$i]."' WHERE (`key` = '".$keys_u[$i]."')";
+$sql = "UPDATE `".$database."`.`washroom_upstairs` SET `order` = '".$wash_u_orders[$i]."' WHERE (`id` = '".$keys_u[$i]."')";
 
 $rr = mysqli_query($conn, $sql) or die($sql);
 }   
 for ($i=0;$i<count($wash_b_orders);$i++)
 {
-$sql = "UPDATE `".$database."`.`washroom_basement` SET `order` = '".$wash_b_orders[$i]."' WHERE (`key` = '".$keys_b[$i]."')";
+$sql = "UPDATE `".$database."`.`washroom_basement` SET `order` = '".$wash_b_orders[$i]."' WHERE (`id` = '".$keys_b[$i]."')";
 
 $rr = mysqli_query($conn, $sql) or die($sql);
 }  

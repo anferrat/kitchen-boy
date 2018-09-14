@@ -179,11 +179,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				{
 					$sql = "UPDATE ".$database.".pending SET location = 'b' WHERE (ms_id LIKE '".$message['sender']['id']."')";
 					mysqli_query($conn, $sql);
+					$bot->send(new Message($message['sender']['id'], 'Your request has been sent'));
 				}
 				else if ($login_res == 200 && $req == 'upstairs')
 				{
 					$sql = "UPDATE ".$database.".pending SET location = 'u' WHERE (ms_id LIKE '".$message['sender']['id']."')";
 					mysqli_query($conn, $sql);
+					$bot->send(new Message($message['sender']['id'], 'Your request has been sent'));
 				}
 
 				else if ($login_res == 300 && $req == 'login')

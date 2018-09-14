@@ -86,7 +86,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-       echo  $row["key"].'--------'.$row["ms_id"].'-------'.$row["name"].'---------'.$row["type"]."<br />";
+       echo  $row["key"].'--------'.$row["ms_id"].'-------'.$row["name"].'---------'.$row["type"].'---------'.$row["location"]."<br />";
     }
 } else {
  die("No Data found");

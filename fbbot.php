@@ -28,7 +28,7 @@ if (!$conn) {
 
 
 
-$sql = "SELECT messenger_id, name, order_number FROM ".$database.".index";
+$sql = "SELECT messenger_id, name, order_number, location FROM ".$database.".index";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
@@ -37,6 +37,7 @@ if ($result->num_rows > 0) {
         $messenger_id[$o] = $row["messenger_id"];
 		$names[$o] = $row["name"];
 		$order_numbers[$o] = $row["order_number"];
+		$locations[$o] = $row["location"];
 		$o++;
     }
 } else {
@@ -601,8 +602,20 @@ $order_numbers[count($order_numbers)] = $new_order;
 	return $stat;
 }
 
-add_client ('7363737373','Gary','u');
-
+//add_client ('7363737373','Gary','u');
+function wash_id_from_name ($name,$wash_array)
+{
+	$res = null;
+	for($i=0;$i<count($wash_array);$i++)
+	{
+		if ($wash_array[$i] == $name)
+		{
+			$res = $i;
+			break;
+		}
+	}
+	return $res;
+}
 function id_from_msid ($ms_id)
 {
 	global $messenger_id;
@@ -642,6 +655,11 @@ function rem_client($ms_id)
 	global $password;
 	global $database;
 	global $conn;
+	global $wash_b_names;
+	global $wash_u_names;
+	global $wash_b_orders;
+	global $wash_u_orders;
+	
 	$stat =1;
 	if (id_from_msid($ms_id) != null)
 	{
@@ -649,6 +667,7 @@ function rem_client($ms_id)
 	$rem_order = $order_numbers[id_from_msid($ms_id)];
 	$del_item_num = id_from_msid($ms_id);
 	$rem_name = $names[$del_item_num];
+	$rem_loc = $locations[$del_item_num];
 	array_splice($messenger_id,$del_item_num,1);
 	array_splice($names,$del_item_num,1);
 	array_splice($order_numbers,$del_item_num,1);
@@ -681,6 +700,51 @@ if (mysqli_query($conn, $sql4)) {
 } else {
     $stat=0;
 }
+	
+	
+	
+	if ($rem_loc === 'b')
+	{
+	$rem_wid = wash_id_from_name($rem_name,$wash_b_names);
+	$rem_wash_order = $wash_b_orders[$rem_wid];
+	array_splice($wash_b_names,$rem_wid,1);
+	array_splice($wash_b_orders,$rem_wid,1);
+	$wash_b_orders = array_values($wash_b_orders);
+	$wash_b_names = array_values($wash_b_names);
+	$sql = "DELETE FROM ".$database.".washroom_basement";
+	mysqli_query($conn, $sql);
+	for ($i=0;$i<count($wash_b_orders);$i++)
+	{
+	if ($wash_b_orders[$i] > $rem_wash_order)
+	{
+		$wash_b_orders[$i]--;
+	}
+	}
+	
+	
+	for($i=0;$i<count($wash_b_orders);$i++)
+{
+	$sql4 = "INSERT INTO ".$database.".washroom_basement (name, `order`) VALUES ('".$wash_b_names[$i]."', ".$wash_b_orders[$i].")";
+
+if (mysqli_query($conn, $sql4)) {
+    
+} else {
+    $stat=0;
+}
+	
+	
+	}
+	else
+	{
+		
+	}
+//$sql = "DELETE FROM ".$database.".index"
+	
+	
+	
+	
+	
+	
 	
 	$sql11 = "SELECT * FROM ".$database.".colors";
 $result11 = $conn->query($sql11);

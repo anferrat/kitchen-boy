@@ -508,7 +508,9 @@ return $col_arr;
 
 }
 
-function add_client($ms_id,$new_name)
+
+
+function add_client($ms_id,$new_name,$loc)
 {
 	global $names;
 	global $messenger_id;
@@ -538,21 +540,29 @@ if (mysqli_query($conn, $sql2)) {
     $stat=0;
 }
 
-$new_order_wb = count($wash_b_names)+1;
-$new_order_wu = count($wash_u_names)+1;
-$sql2 = "INSERT INTO ".$database.".washroom_basement (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wb.")";
+
+if ($loc =='b')
+{
+	$new_order_wb = count($wash_b_names)+1;
+	$sql2 = "INSERT INTO ".$database.".washroom_basement (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wb.")";
 if (mysqli_query($conn, $sql2)) {
     $stat=1;
 } else {
     $stat=0;
+}
+}
+else if ($loc =='b')
+{
+	$new_order_wu = count($wash_u_names)+1;
+	$sql2 = "INSERT INTO ".$database.".washroom_upstairs (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wu.")";
+if (mysqli_query($conn, $sql2)) {
+    $stat=1;
+} else {
+    $stat=0;
+}
 }
 
-$sql2 = "INSERT INTO ".$database.".washroom_upstairs (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wu.")";
-if (mysqli_query($conn, $sql2)) {
-    $stat=1;
-} else {
-    $stat=0;
-}
+
 
 
 
@@ -590,6 +600,9 @@ $order_numbers[count($order_numbers)] = $new_order;
 }
 	return $stat;
 }
+
+add_client ('7363737373','Gary','u');
+
 function id_from_msid ($ms_id)
 {
 	global $messenger_id;

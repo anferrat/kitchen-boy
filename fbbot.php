@@ -546,7 +546,7 @@ if (mysqli_query($conn, $sql2)) {
 if ($loc === 'b')
 {
 	$new_order_wb = count($wash_b_names)+1;
-	$sql2 = "INSERT INTO ".$database.".washroom_basement (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wb.")";
+	$sql2 = "INSERT INTO ".$database.".washroom_basement (name, `order`) VALUES ('".$new_name."', ".$new_order_wb.")";
 if (mysqli_query($conn, $sql2)) {
     $stat=1;
 } else {
@@ -556,7 +556,7 @@ if (mysqli_query($conn, $sql2)) {
 else if ($loc === 'u')
 {
 	$new_order_wu = count($wash_u_names)+1;
-	$sql2 = "INSERT INTO ".$database.".washroom_upstairs (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wu.")";
+	$sql2 = "INSERT INTO ".$database.".washroom_upstairs (name, `order`) VALUES ('".$new_name."', ".$new_order_wu.")";
 if (mysqli_query($conn, $sql2)) {
     $stat=1;
 } else {

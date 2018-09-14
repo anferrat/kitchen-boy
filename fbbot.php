@@ -447,14 +447,43 @@ function cal_data($inp_ar, $inp_wash)
 	$calendar[$ii]['backgroundColor'] = 'black';
 	$calendar[$ii]['borderColor'] = 'white';
 	$calendar[$ii]['textColor'] = 'white';
+	$ii++;
 	
-	
+	if ($inp_wash !== 0)
+	{
+	for ($j=0;$j<count($names);$j++)
+	{
+		$s=0;
+		for ($i=0;$i<count($inp_wash['events']);$i++)
+		{
+		
+		if (strpos($inp_wash['events'][$i]['title'],$names[$j]) !== false)
+		{
+			
+			$calendar[$ii]['events'][$s]['title'] = $inp_wash['events'][$i]['title'];
+			$calendar[$ii]['events'][$s]['start'] = $inp_wash['events'][$i]['start'];
+			$calendar[$ii]['events'][$s]['end'] = $inp_wash['events'][$i]['end'];
+			$s++;
+		}
+		
+		
+		}
+		if ($s!=0)
+		{
+		$col_ar = getcolbyname($names[$j]);
+		$calendar[$ii]['backgroundColor'] = $col_ar['bg'];
+		$calendar[$ii]['borderColor'] = $col_ar['bd'];
+		$calendar[$ii]['textColor'] = $col_ar['text'];
+		//$calendar[$ii]['nextDayThreshold'] = '00:00:00';
+		}
+		$ii++;
+	}
+	}
 
 	
 	
 	return $calendar;
 }
-
 
 function getcolbyname ($name_q)
 {

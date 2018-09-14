@@ -520,6 +520,8 @@ function add_client($ms_id,$new_name,$loc)
 	global $password;
 	global $database;
 	global $conn;
+	global $wash_b_names;
+	global $wash_u_names;
 	
 $stat;
 for ($i=0;$i<count($names);$i++)
@@ -558,7 +560,7 @@ else if ($loc == 'u')
 if (mysqli_query($conn, $sql2)) {
     $stat=1;
 } else {
-    $stat=0;
+    echo $sql2;
 }
 }
 

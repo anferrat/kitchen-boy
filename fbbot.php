@@ -531,12 +531,31 @@ if (!$rep_names)
 {
 	$new_order = count($names)+1;
 	
-$sql2 = "INSERT INTO ".$database.".index (messenger_id, name, order_number) VALUES ('".$ms_id."', '".$new_name."', ".$new_order.")";
+$sql2 = "INSERT INTO ".$database.".index (messenger_id, name, order_number, location) VALUES ('".$ms_id."', '".$new_name."', ".$new_order.", '".$loc."')";
 if (mysqli_query($conn, $sql2)) {
     $stat=1;
 } else {
     $stat=0;
 }
+
+$new_order_wb = count($wash_b_names)+1;
+$new_order_wu = count($wash_u_names)+1;
+$sql2 = "INSERT INTO ".$database.".washroom_basement (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wb.")";
+if (mysqli_query($conn, $sql2)) {
+    $stat=1;
+} else {
+    $stat=0;
+}
+
+$sql2 = "INSERT INTO ".$database.".washroom_upstairs (id, name, order) VALUES ('".$ms_id."', '".$new_name."', ".$new_order_wu.")";
+if (mysqli_query($conn, $sql2)) {
+    $stat=1;
+} else {
+    $stat=0;
+}
+
+
+
 $sql11 = "SELECT * FROM ".$database.".colors";
 $result11 = $conn->query($sql11);
 if ($result11->num_rows > 0) {

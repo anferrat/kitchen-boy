@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
        if ($row['key'] == $key)
 	   {
 		   $ms_id_del = $row['ms_id'];
-	   add_client($row['ms_id'],$row['name']);
+	   add_client($row['ms_id'],$row['name'],$row['location']);
 	   }
     }
 } else {

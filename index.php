@@ -17,13 +17,14 @@ if (!$conn) {
 }
 
 
-$sql = "SELECT ms_id FROM ".$database.".pending";
+$sql = "SELECT * FROM ".$database.".pending";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
 	$o=0;
     while($row = $result->fetch_assoc()) {
         $ms_id_pen[$o] = $row["ms_id"];
+		$loc_pen[$o] = $row["location"];
 		$o++;
     }
 } else {
@@ -97,8 +98,15 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				{
 					if($ms_id_pen[$i] == $message['sender']['id'])
 					{
+						if ($loc_pen[$i] === '0')
+						{
 						$login_res = 200; // request is pending
 						break;
+						}
+						else
+						{
+							$login_res = 400;
+						}
 					}
 				
 				}
@@ -117,6 +125,15 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'login';
 			}
+			if (strtolower($command) == 'basement')
+			{
+				$req = 'basement';
+			}
+			if (strtolower($command) == 'upstairs')
+			{
+				$req = 'upstairs';
+			}
+			
 			
 			if (strtolower($command) == 'calendar')
 			{
@@ -158,10 +175,17 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 // command action gen
 			if (!empty($command))
 				{
-					if ($login_res == 200 && $req == 'login')
+					if ($login_res == 200 && $req == 'basement')
 				{
-					$bot->send(new Message($message['sender']['id'], 'You have a pending request'));
+					$sql = "UPDATE ".$database.".pending SET location = 'b' WHERE (ms_id LIKE '".$message['sender']['id']."')";
+					mysqli_query($conn, $sql);
 				}
+				else if ($login_res == 200 && $req == 'upstairs')
+				{
+					$sql = "UPDATE ".$database.".pending SET location = 'u' WHERE (ms_id LIKE '".$message['sender']['id']."')";
+					mysqli_query($conn, $sql);
+				}
+
 				else if ($login_res == 300 && $req == 'login')
 				{
 					$bot->send(new Message($message['sender']['id'], 'You are already registred'));
@@ -169,9 +193,15 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				else if ($login_res == 100 && $req == 'login')
 				{
 					$pen_name = substr($command,6);
-					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0)";
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login, location) VALUES ('".$message['sender']['id']."', '".$pen_name."', 'login', 0, '0')";
 					mysqli_query($conn, $sql);
-					$bot->send(new Message($message['sender']['id'], 'Login request sent. You will recieve approval notification shortly.'));
+					$bot->send(new QuickReply($message['sender']['id'], 'Which part of the house do you live?', 
+                            [
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Basement', 'PAYLOAD 1'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Upstairs', 'PAYLOAD 2'),
+                            
+                            ]
+                    ));
 				}
 				else if ($login_res == 100 && $req != 'login')
 				{
@@ -252,9 +282,20 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				}
 				else if ($login_res == 200 && $req != 'login')
 				{
-					$bot->send(new Message($message['sender']['id'], 'You have a pending login request. You cant use commands yet'));
+					$bot->send(new QuickReply($message['sender']['id'], 'Which part of the house do you live?', 
+                            [
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Basement', 'PAYLOAD 1'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'Upstairs', 'PAYLOAD 2'),
+                            
+                            ]
+                    ));
+					
 				}
-				else 
+				else if ($login_res == 400 && $req == 'login')
+				{
+					$bot->send(new Message($message['sender']['id'], 'You have pending login request'));
+				}
+				else
 				{
 					///
 				}

@@ -8,7 +8,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-/*
+
 $sql = "SELECT * FROM ".$database.".index";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -33,10 +33,10 @@ $sql = "UPDATE `".$database."`.`index` SET `order_number` = '".$order_numbers[$i
 
 $rr = mysqli_query($conn, $sql) or die($sql);
 }    
-*/
-/*if ( date('D',time()-500) == 'Sun')
+
+if ( date('D',time()-500) == 'Sun')
 {
-	*/
+	
 	
 	
 $sql = "SELECT * FROM ".$database.".washroom_basement";
@@ -86,7 +86,7 @@ $rr = mysqli_query($conn, $sql) or die($sql);
 }  
 
 
-//}
+}
 
 mysqli_close ($conn);
 ?>

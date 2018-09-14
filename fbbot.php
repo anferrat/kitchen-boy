@@ -734,6 +734,7 @@ if (mysqli_query($conn, $sql4)) {
 	
 	
 	}
+	}
 	else
 	{
 		

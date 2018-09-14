@@ -558,9 +558,9 @@ else if ($loc === 'u')
 	$new_order_wu = count($wash_u_names)+1;
 	$sql2 = "INSERT INTO ".$database.".washroom_upstairs (name, `order`) VALUES ('".$new_name."', ".$new_order_wu.")";
 if (mysqli_query($conn, $sql2)) {
-    $stat=1;
-} else {
     echo $sql2;
+} else {
+    echo 'hui';
 }
 }
 

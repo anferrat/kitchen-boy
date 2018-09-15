@@ -26,11 +26,9 @@ if ($result->num_rows > 0) {
 	   add_client($row['ms_id'],$row['name'],$row['location']);
 	   }
     }
-} else {
- die("No Data found");
-}
+} 
 $sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."') and (`ms_id` = '".$ms_id_del."')";
-$rr = mysqli_query($conn, $sql8) or die($sql8);
+$rr = mysqli_query($conn, $sql8);
 reg_conf($ms_id_del);
 }
 
@@ -55,7 +53,7 @@ if ($result->num_rows > 0) {
  die("No Data found");
 }
 $sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."') and (`ms_id` = '".$ms_id_del."')";
-$rr = mysqli_query($conn, $sql8) or die($sql8);
+$rr = mysqli_query($conn, $sql8);
 rem_conf($ms_id_del);
 }
 
@@ -88,9 +86,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
        echo  $row["key"].'--------'.$row["ms_id"].'-------'.$row["name"].'---------'.$row["type"].'---------'.$row["location"]."<br />";
     }
-} else {
- die("No Data found");
-}
+} 
 
 
 

@@ -676,18 +676,15 @@ function rem_client($ms_id)
 	
 	$sql3 = "DELETE FROM ".$database.".`index` WHERE messenger_id = '".$ms_id."'";
 	
-mysqli_query($conn, $sql3);
-for($i=0;$i<count($messenger_id);$i++)
-{
-	$sql4 = "UPDATE ".$database.".`index` SET order_number = '".$order_numbers[$i]."' WHERE messenger_id = '".$messenger_id[$i]."'";
+	mysqli_query($conn, $sql3);
+	
+	for($i=0;$i<count($messenger_id);$i++)
+	{
+		$sql4 = "UPDATE ".$database.".`index` SET order_number = '".$order_numbers[$i]."' WHERE messenger_id = '".$messenger_id[$i]."'";
 
-if (mysqli_query($conn, $sql4)) {
-    
-} else {
-    $stat=0;
-}
-}
-	/*
+		mysqli_query($conn, $sql4);
+	}
+
 	
 	if ($rem_loc === 'b')
 	{
@@ -697,37 +694,30 @@ if (mysqli_query($conn, $sql4)) {
 	array_splice($wash_b_orders,$rem_wid,1);
 	$wash_b_orders = array_values($wash_b_orders);
 	$wash_b_names = array_values($wash_b_names);
-	$sql = "DELETE FROM ".$database.".washroom_basement";
+	$sql = "DELETE FROM ".$database.".washroom_basement WHERE name = '".$rem_name."'";
 	mysqli_query($conn, $sql);
 	for ($i=0;$i<count($wash_b_orders);$i++)
 	{
-	if ($wash_b_orders[$i] > $rem_wash_order)
+		if ($wash_b_orders[$i] > $rem_wash_order)
+			{
+				$wash_b_orders[$i]--;
+			}
+	}
+	
+	
+	for($i=0;$i<count($wash_b_names);$i++)
 	{
-		$wash_b_orders[$i]--;
-	}
-	}
-	
-	
-	for($i=0;$i<count($wash_b_orders);$i++)
-{
-	$sql4 = "INSERT INTO ".$database.".washroom_basement (name, `order`) VALUES ('".$wash_b_names[$i]."', ".$wash_b_orders[$i].")";
-
-if (mysqli_query($conn, $sql4)) {
-    
-} else {
-    $stat=0;
-}
-	
-	
+		$sql4 = "UPDATE ".$database.".washroom_basement SET order = '".$wash_b_orders[$i]."' WHERE name = '".$wash_b_names[$i]."'";
+		mysqli_query($conn, $sql4);	
 	}
 	}
 	else
 	{
-		
+	
+
+
+	
 	}
-//$sql = "DELETE FROM ".$database.".index"
-	
-	
 	
 	
 	*/

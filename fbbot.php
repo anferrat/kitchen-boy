@@ -645,6 +645,7 @@ function rem_client($ms_id)
 	global $username;
 	global $password;
 	global $database;
+	global $locations;
 	global $conn;
 	global $wash_b_names;
 	global $wash_u_names;
@@ -694,7 +695,7 @@ function rem_client($ms_id)
 	array_splice($wash_b_orders,$rem_wid,1);
 	$wash_b_orders = array_values($wash_b_orders);
 	$wash_b_names = array_values($wash_b_names);
-	$sql = "DELETE FROM ".$database.".washroom_basement WHERE name = '".$rem_name."'";
+	$sql = "DELETE FROM ".$database.".`washroom_basement` WHERE name = '".$rem_name."'";
 	mysqli_query($conn, $sql);
 	for ($i=0;$i<count($wash_b_orders);$i++)
 	{

@@ -714,7 +714,28 @@ function rem_client($ms_id)
 	}
 	else
 	{
+	$rem_wid = wash_id_from_name($rem_name,$wash_u_names);
+	$rem_wash_order = $wash_u_orders[$rem_wid];
+	array_splice($wash_u_names,$rem_wid,1);
+	array_splice($wash_u_orders,$rem_wid,1);
+	$wash_u_orders = array_values($wash_u_orders);
+	$wash_u_names = array_values($wash_u_names);
+	$sql = "DELETE FROM ".$database.".`washroom_upstairs` WHERE name = '".$rem_name."'";
+	mysqli_query($conn, $sql);
+	for ($i=0;$i<count($wash_u_orders);$i++)
+	{
+		if ($wash_u_orders[$i] > $rem_wash_order)
+			{
+				$wash_u_orders[$i]--;
+			}
+	}
 	
+	
+	for($i=0;$i<count($wash_u_names);$i++)
+	{
+		$sql4 = "UPDATE ".$database.".washroom_upstairs SET `order` = '".$wash_u_orders[$i]."' WHERE name = '".$wash_u_names[$i]."'";
+		mysqli_query($conn, $sql4);	
+	}
 
 
 	

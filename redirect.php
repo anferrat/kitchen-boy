@@ -86,6 +86,6 @@ del($_POST['remove']);
 mysqli_close ($conn);
 
 echo '<script>
-  location.href= "/denwer/auth.php";
+  location.href= "/auth.php";
 </script>';
 ?>

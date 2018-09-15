@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
 /*
 Major data from index table
 
-$messenger_id  : array   - messenger id's for sending messengers to users
+$messenger_id  : array   - messenger PSID for sending messengers to users
 $names         : array   - names of all people on duty
 $order_numbers : array   - order numbers of people
 $locations     : array   - location of people

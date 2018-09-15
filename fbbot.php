@@ -720,7 +720,6 @@ function rem_client($ms_id)
 	}
 	
 	
-	*/
 	
 	
 $sql11 = "SELECT * FROM ".$database.".colors";

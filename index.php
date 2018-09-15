@@ -222,10 +222,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 							if($messenger_id[$i] == $message['sender']['id'])
 							{
 								$usname=$names[$i];
+								$loc_rem = $locations[$i];
 								break;
 							}
 						}
-					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login) VALUES ('".$message['sender']['id']."', '".$usname."', 'logout', 0)";
+					$sql = "INSERT INTO ".$database.".pending (ms_id, name, type, login, location) VALUES ('".$message['sender']['id']."', '".$usname."', 'logout', 0, '".$loc_rem."')";
 					mysqli_query($conn, $sql);
 					$bot->send(new Message($message['sender']['id'], 'Request to logout has been sent.'));
 					}

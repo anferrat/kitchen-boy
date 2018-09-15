@@ -48,7 +48,8 @@ Major data from index table
 
 $messenger_id  : array   - messenger id's for sending messengers to users
 $names         : array   - names of all people on duty
-$order_numbers : array   - order numbers of people. 
+$order_numbers : array   - order numbers of people
+$locations     : array   - location of people
 
 */
 

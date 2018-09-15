@@ -674,11 +674,11 @@ function rem_client($ms_id)
 	}
 	}
 	
-	$sql3 = "DELETE FROM ".$database.".index WHERE messenger_id = '".$ms_id."'";
+	$sql3 = "DELETE FROM ".$database.".`index` WHERE messenger_id = '".$ms_id."'";
 
 for($i=0;$i<count($messenger_id);$i++)
 {
-	$sql4 = "UPDATE ".$database.".index SET order_number = '".$order_numbers[$i]."' WHERE messenger_id = '".$messenger_id[$i]."'";
+	$sql4 = "UPDATE ".$database.".`index` SET order_number = '".$order_numbers[$i]."' WHERE messenger_id = '".$messenger_id[$i]."'";
 
 if (mysqli_query($conn, $sql4)) {
     

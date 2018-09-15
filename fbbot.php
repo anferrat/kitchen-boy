@@ -708,7 +708,7 @@ function rem_client($ms_id)
 	
 	for($i=0;$i<count($wash_b_names);$i++)
 	{
-		$sql4 = "UPDATE ".$database.".washroom_basement SET order = '".$wash_b_orders[$i]."' WHERE name = '".$wash_b_names[$i]."'";
+		$sql4 = "UPDATE ".$database.".washroom_basement SET `order` = '".$wash_b_orders[$i]."' WHERE name = '".$wash_b_names[$i]."'";
 		mysqli_query($conn, $sql4);	
 	}
 	}

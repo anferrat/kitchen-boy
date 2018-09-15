@@ -651,7 +651,7 @@ function rem_client($ms_id)
 	global $wash_b_orders;
 	global $wash_u_orders;
 	
-	$stat =1;
+	$stat = 1;
 	if (id_from_msid($ms_id) != null)
 	{
 		
@@ -674,25 +674,19 @@ function rem_client($ms_id)
 	}
 	}
 	
-	$sql3 = "DELETE FROM ".$database.".index";
-	
-	if (mysqli_query($conn, $sql3)) {
-    
-} else {
-    $stat=0;
-}
+	$sql3 = "DELETE FROM ".$database.".index WHERE messenger_id = '".$ms_id."'";
 
 for($i=0;$i<count($messenger_id);$i++)
 {
-	$sql4 = "INSERT INTO ".$database.".index (messenger_id, name, order_number) VALUES ('".$messenger_id[$i]."', '".$names[$i]."', ".$order_numbers[$i].")";
+	$sql4 = "UPDATE ".$database.".index SET order_number = '".$order_numbers[$i]."' WHERE messenger_id = '".$messenger_id[$i]."'";
 
 if (mysqli_query($conn, $sql4)) {
     
 } else {
     $stat=0;
 }
-	
-	
+}
+	/*
 	
 	if ($rem_loc === 'b')
 	{
@@ -735,10 +729,10 @@ if (mysqli_query($conn, $sql4)) {
 	
 	
 	
+	*/
 	
 	
-	
-	$sql11 = "SELECT * FROM ".$database.".colors";
+$sql11 = "SELECT * FROM ".$database.".colors";
 $result11 = $conn->query($sql11);
 if ($result11->num_rows > 0) {
     // output data of each row
@@ -767,7 +761,6 @@ $rr = mysqli_query($conn, $sql);
 	
 }
 
-	}
 	else 
 	{
 		$stat = 0;

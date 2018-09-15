@@ -40,8 +40,6 @@ if ($result->num_rows > 0) {
 		$locations[$o] = $row["location"];
 		$o++;
     }
-} else {
- die("No Data found");
 }
 
 
@@ -64,8 +62,6 @@ if ($result->num_rows > 0) {
 		$wash_b_orders[$o] = $row["order"];
 		$o++;
     }
-} else {
- die("No Data found");
 }
 
 $sql = "SELECT * FROM ".$database.".washroom_upstairs";
@@ -78,8 +74,6 @@ if ($result->num_rows > 0) {
 		$wash_u_orders[$o] = $row["order"];
 		$o++;
     }
-} else {
- die("No Data found");
 }
 
 
@@ -97,8 +91,6 @@ if ($resul->num_rows > 0) {
 		$text[$l] = $row["text"];
 		$l++;
     }
-} else {
- die($sql);
 }
 
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
@@ -580,8 +572,6 @@ if ($result11->num_rows > 0) {
 		$text[$l] = $row["text"];
 		$l++;
     }
-} else {
- die($sql);
 }
 
 for ($i=0;$i<count($key_c);$i++)
@@ -593,7 +583,7 @@ for ($i=0;$i<count($key_c);$i++)
 	}
 }
 $sql = "UPDATE `".$database."`.`colors` SET `name` = '".$new_name."' WHERE (`key` = '".$ins_point."')";
-$rr = mysqli_query($conn, $sql) or die($sql);
+$rr = mysqli_query($conn, $sql);
 
 $names[count($names)] = $new_name;
 $messenger_id[count($messenger_id)] = $ms_id;
@@ -760,8 +750,6 @@ if ($result11->num_rows > 0) {
 		$text[$l] = $row["text"];
 		$l++;
     }
-} else {
- die($sql);
 }
 
 for ($i=0;$i<count($key_c);$i++)
@@ -773,7 +761,7 @@ for ($i=0;$i<count($key_c);$i++)
 	}
 }
 $sql = "UPDATE `".$database."`.`colors` SET `name` = 'na' WHERE (`key` = '".$del_point."')";
-$rr = mysqli_query($conn, $sql) or die($sql);
+$rr = mysqli_query($conn, $sql);
 	
 	
 }

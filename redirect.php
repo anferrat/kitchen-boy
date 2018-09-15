@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
 } 
 $sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."')";
 $rr = mysqli_query($conn, $sql8);
-//reg_conf($ms_id_del);
+reg_conf($ms_id_del);
 }
 
 function remove($key)
@@ -53,7 +53,7 @@ if ($result->num_rows > 0) {
 
 $sql8 = "DELETE FROM `".$database."`.`pending` WHERE (`key` = '".$key."')";
 $rr = mysqli_query($conn, $sql8);
-//rem_conf($ms_id_del);
+rem_conf($ms_id_del);
 }
 
 function del($key)

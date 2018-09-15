@@ -503,8 +503,6 @@ return $col_arr;
 
 }
 
-
-
 function add_client($ms_id,$new_name,$loc)
 {
 	global $names;
@@ -594,7 +592,6 @@ $order_numbers[count($order_numbers)] = $new_order;
 	return $stat;
 }
 
-//add_client ('7363737373','Gary','u');
 function wash_id_from_name ($name,$wash_array)
 {
 	$res = null;
@@ -781,5 +778,33 @@ $rr = mysqli_query($conn, $sql);
 	return $stat;
 }
 
+function add_history ($name)
+{
+	global $conn;
+	
+$sql = "SELECT * FROM ".$database.".history";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=1;
+    while($row = $result->fetch_assoc()) {
+        $h_name[$o] = $row["name"];
+		$o++;
+    }
+} 	
+for ($i=count($h_name);$i>1;$i--)
+{
+	$h_name[$i] = $h_name[$i-1];
+}
+$h_name[1] = $name;
+
+
+for ($i=1;$i<=count($h_name);$i++)
+{
+	$sql = "UPDATE ".$database.".history SET `name` = '".$h_name[$i]."' WHERE id = ".$i;
+	mysqli_query($conn, $sql);	
+}
+
+}
 mysqli_close ($conn);
 ?>

@@ -1,6 +1,15 @@
 <?php
+$verify_token = "kitchen";
+$token = "EAAbf6i0r8GoBAAoL1EVtXv1DibWI5lRfMU7r2YkGe3w5a3FnE73f0zxkhFY3mJiE6ACuwyD9IweseZCteAZB7J10PTJXRndTtzyhsV9wLUnwDtIkc2wGfjIoxof5n379YNEgP7le8yXPbtb5sqZAcWEqcJXZBIPRhWZClnTZAMZCuZAAuNQhtwGF";
+
+if (file_exists(__DIR__.'/config.php')) {
+    $config = include __DIR__.'/config.php';
+    $verify_token = $config['verify_token'];
+    $token = $config['token'];
+}
+
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
-include 'bot_source.php';
+
 include 'fbbot.php';
 $conn = mysqli_connect($hostname, $username, $password, $database);
 if (!$conn) {
@@ -20,6 +29,38 @@ if ($result->num_rows > 0) {
     }
 }
 
+use pimax\FbBotApp;
+use pimax\Menu\MenuItem;
+use pimax\Menu\LocalizedMenu;
+use pimax\Messages\Message;
+use pimax\Messages\MessageButton;
+use pimax\Messages\StructuredMessage;
+use pimax\Messages\MessageElement;
+use pimax\Messages\MessageReceiptElement;
+use pimax\Messages\Address;
+use pimax\Messages\Summary;
+use pimax\Messages\Adjustment;
+use pimax\Messages\AccountLink;
+use pimax\Messages\ImageMessage;
+use pimax\Messages\QuickReply;
+use pimax\Messages\QuickReplyButton;
+use pimax\Messages\SenderAction;
+// Make Bot Instance
+$bot = new FbBotApp($token);
+if (!empty($_REQUEST['local'])) {
+    $message = new ImageMessage(1585388421775947, dirname(__FILE__).'/fb4d_logo-2x.png');
+    $message_data = $message->getData();
+    $message_data['message']['attachment']['payload']['url'] = 'fb4d_logo-2x.png';
+    echo '<pre>', print_r($message->getData()), '</pre>';
+    $res = $bot->send($message);
+    echo '<pre>', print_r($res), '</pre>';
+}
+
+
+// Receive something
+
+
+//$bot->send(new Message('2170490766313202', 'Yo'));
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
     // Webhook setup request

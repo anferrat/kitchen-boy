@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
-
+include 'bot_source.php';
 include 'fbbot.php';
 $conn = mysqli_connect($hostname, $username, $password, $database);
 if (!$conn) {

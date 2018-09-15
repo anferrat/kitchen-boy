@@ -27,8 +27,6 @@ if ($result->num_rows > 0) {
 		$loc_pen[$o] = $row["location"];
 		$o++;
     }
-} else {
- die("No Data found");
 }
 
 use pimax\FbBotApp;

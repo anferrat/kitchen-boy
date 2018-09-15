@@ -1,3 +1,11 @@
+<?php
+$pass = getenv('sec');
+    if (!isset($_COOKIE['password']) || $_COOKIE['password'] !== $pass) {
+        header('Location: login.php');
+        exit;
+    }
+?>
+
 <!doctype html>
 <html lang="en">
 <head>

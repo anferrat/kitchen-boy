@@ -1059,8 +1059,8 @@ function screenshotlayer($url, $args) {
 
 function pic_update ()
 {   
-$params['width'] = '900';      
-$params['viewport']  = '1440x1100';  
+$params['width'] = '1440';      
+$params['viewport']  = '1440x700';  
 $params['format'] = 'jpg'; 
 $params['force'] = '1';     
   
@@ -1084,7 +1084,7 @@ function GetImageFromUrl($link) {
 	return $result;
 }
 
-pic_update ();
+//pic_update ();
 
 
 

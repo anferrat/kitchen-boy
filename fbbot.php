@@ -378,6 +378,7 @@ for ($i=0;$i<$days;$i++)
 	return $sch;
 }
 
+
 function cal_data($inp_ar, $inp_wash)
 {
 	global $names;
@@ -778,11 +779,11 @@ $rr = mysqli_query($conn, $sql);
 	return $stat;
 }
 
-function add_history ($name)
+function add_history ($name,$table)
 {
 	global $conn;
 	
-$sql = "SELECT * FROM ".$database.".history";
+$sql = "SELECT * FROM ".$database.".".$table;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
@@ -801,7 +802,262 @@ $h_name[1] = $name;
 
 for ($i=1;$i<=count($h_name);$i++)
 {
-	$sql = "UPDATE ".$database.".history SET `name` = '".$h_name[$i]."' WHERE id = ".$i;
+	$sql = "UPDATE ".$database.".".$table." SET `name` = '".$h_name[$i]."' WHERE id = ".$i;
+	mysqli_query($conn, $sql);	
+}
+
+}
+
+
+function sch_gen_screenshot ($time)
+{
+	global $names;
+	global $messenger_id;
+	global $order_numbers;
+	global $hostname;
+	global $username;
+	global $password;
+	global $database;
+	
+	$conn = mysqli_connect($hostname, $username, $password, $database);
+	
+	$n = count($names);
+	$p = $time;
+	
+    $t = date('t',$p);
+    $day = date('j',$p);
+	
+	$names_gen = $names;
+	$order_gen = $order_numbers;
+	
+for ($i=$day;$i<=$t;$i++)
+{
+	$dd = date('d',$p); 
+	$sch['events'][$i-1]['title'] = $names_gen[mini($order_gen)];
+	$sch['events'][$i-1]['start'] = date('Y',$time).'-'.date('m',$time).'-'.$dd;
+	$sch['events'][$i-1]['end'] = date('Y',$time).'-'.date('m',$time).'-'.$dd;
+    $p = $p + 86400;
+	$order_gen = order_push($order_gen);
+}
+
+if ($day != 1)
+{
+
+$sql = "SELECT * FROM ".$database.".history ORDER BY id";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+		if($row["name"] !='')
+		{
+        $h_name[$o] = $row["name"];
+		$o++;
+		}
+    }
+} 	
+$o=0;
+$p = time()-86400;
+for ($i=$day-1;$i>=1;$i--)
+{
+	$dd = date('d',$p);
+	$sch['events'][$i-1]['title'] = $h_name[$o];
+	$o++;
+	$sch['events'][$i-1]['start'] = date('Y',$time).'-'.date('m',$time).'-'.$dd;
+	$sch['events'][$i-1]['end'] = date('Y',$time).'-'.date('m',$time).'-'.$dd;
+	$p=$p-86400;
+}
+
+}
+
+$t = $p;
+for ($i=0;$i<date('t',$p);$i++)
+{
+	$uy = count($sch['events']);
+	if (gr_bl_bin($t))
+	{
+	$sch['events'][$uy]['title'] = 'Push Green and Blue bins';
+	$sch['events'][$uy]['start'] = substr(date("c",$t),0,10);
+	$sch['events'][$uy]['end'] = substr(date("c",$t),0,10);
+	}
+	if (black_bin($t))
+	{
+	$sch['events'][$uy]['title'] = 'Push Black bin';
+	$sch['events'][$uy]['start'] = substr(date("c",$t),0,10);
+	$sch['events'][$uy]['end'] = substr(date("c",$t),0,10);
+	}
+	$t = $t + 86400;
+}
+
+
+mysqli_close ($conn);
+	return $sch;
+}
+
+
+function weeks_count($time)
+{
+$this_month = date('n',$time);
+$weeks[0]['start'] = mktime(0,0,0,date('n',$time),1,date('Y',$time));
+if (date('D',mktime(0,0,0,date('n',$time),1,date('Y',$time))) != 'Sun')
+{
+$first_sunday = strtotime('next Sunday', mktime(0,0,0,date('n',$time),1,date('Y',$time)));
+$weeks[0]['end'] = $first_sunday+86399;
+}
+else{
+	$first_sunday = mktime(0,0,0,date('n',$time),1,date('Y',$time));
+	$weeks[0]['end'] = mktime(0,0,0,date('n',$time),1,date('Y',$time))+86399;
+}
+$week_count = 1;
+$t=$first_sunday;
+
+ while (date('n',strtotime('next Sunday',$t)) == $this_month)
+	{
+	$weeks[$week_count]['start'] = $t+86400;
+	$weeks[$week_count]['end'] = strtotime('next Sunday',$t)+86399;
+	$week_count++;
+	$t = $t + 86400*7;
+	}
+if (date('D',mktime(0,0,0,date('n',$time),date('t',$time),date('Y',$time))) != 'Sun')
+{
+$weeks[$week_count]['start'] = $t+86400;
+$weeks[$week_count]['end'] = mktime(0,0,0,date('n',$time),date('t',$time),date('Y',$time))+86399;
+$week_count++;
+}	
+return $weeks;
+} 
+
+function week_now ($time)
+{
+	$weeks = weeks_count($time);
+	$now = '';
+	
+	for ($i=0;$i<count($weeks);$i++)
+	{
+		if (($time >= $weeks[$i]['start']) && ($time<=$weeks[$i]['end']))
+		{
+			$now = $i;
+			break;
+		}
+	}
+	return $now;
+}
+
+
+
+function wash_gen_screenshot($time)
+{
+	global $wash_u_names;
+	global $wash_b_names;
+	global $wash_b_orders;
+	global $wash_u_orders;
+	global $hostname;
+	global $username;
+	global $password;
+	global $database;
+	
+	$names_gen_b = $wash_b_names;
+	$orders_gen_b = $wash_b_orders;
+	$names_gen_u = $wash_u_names;
+	$orders_gen_u = $wash_u_orders;
+	
+	$t = $time;
+
+	$weeks = weeks_count($t);
+	$now = week_now($t);
+	$o=0;
+	for ($i=$now;$i<count($weeks);$i++)
+	{
+		//echo date("c",$weeks[$i]['start']).$o.'<br />';
+		$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+		$sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
+		
+		$o++;
+		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
+	    $sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
+	
+		$o++;
+		$orders_gen_u = order_push($orders_gen_u);
+		$orders_gen_b = order_push($orders_gen_b);
+	}
+$l=$o;
+$conn = mysqli_connect($hostname, $username, $password, $database);
+	
+
+$sql = "SELECT * FROM ".$database.".basement_history ORDER BY id";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+		if($row["name"] !='')
+		{
+        $b_name[$o] = $row["name"];
+		$o++;
+		}
+    }
+} 	
+
+$sql = "SELECT * FROM ".$database.".upstairs_history ORDER BY id";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=0;
+    while($row = $result->fetch_assoc()) {
+		if($row["name"] !='')
+		{
+        $u_name[$o] = $row["name"];
+		$o++;
+		}
+    }
+} 
+$bb = 0;
+$uu = 0;
+for ($i=$now-1;$i>=0;$i--)
+{
+	$sch_w['events'][$l]['title'] = 'Basement washroom: '.$b_name[$bb];
+	$bb++;
+	$sch_w['events'][$l]['start'] = date("c",$weeks[$i]['start']);
+	$sch_w['events'][$l]['end'] = date("c",$weeks[$i]['end']);
+	$l++;
+	$sch_w['events'][$l]['title'] = 'Upstairs washroom: '.$u_name[$uu];
+	$uu++;
+	$sch_w['events'][$l]['start'] = date("c",$weeks[$i]['start']);
+	$sch_w['events'][$l]['end'] = date("c",$weeks[$i]['end']);
+	$l++;
+	
+}
+
+	
+	
+mysqli_close ($conn);
+	return $sch_w;
+}
+
+	global $conn;
+	
+$sql = "SELECT * FROM ".$database.".".$table;
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+	$o=1;
+    while($row = $result->fetch_assoc()) {
+        $h_name[$o] = $row["name"];
+		$o++;
+    }
+} 	
+for ($i=count($h_name);$i>1;$i--)
+{
+	$h_name[$i] = $h_name[$i-1];
+}
+$h_name[1] = $name;
+
+
+for ($i=1;$i<=count($h_name);$i++)
+{
+	$sql = "UPDATE ".$database.".".$table." SET `name` = '".$h_name[$i]."' WHERE id = ".$i;
 	mysqli_query($conn, $sql);	
 }
 

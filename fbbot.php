@@ -1036,6 +1036,5 @@ mysqli_close ($conn);
 	return $sch_w;
 }
 
-}
 mysqli_close ($conn);
 ?>

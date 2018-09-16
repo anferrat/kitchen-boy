@@ -139,61 +139,37 @@ function wash_gen($days)
 	$orders_gen_u = $wash_u_orders;
 	
 	$t = time();
-	
 
-	$k = $days*86400;
-	if ($days*86400 + $t < strtotime('next Sunday'))
+	$weeks = weeks_count($t);
+	$now = week_now($t);
+	$o=0;
+	$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+		$sch_w['events'][$o]['start'] = date("c",$t);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$now]['end']);
+		
+		$o++;
+		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
+	    $sch_w['events'][$o]['start'] = date("c",$t);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$now]['end']);
+	
+		$o++;
+		$orders_gen_u = order_push($orders_gen_u);
+		$orders_gen_b = order_push($orders_gen_b);
+		
+	for ($i=$now+1;$i<count($weeks);$i++)
 	{
-	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
-	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][0]['end'] = substr(date("c",($days*86400 + $t)),0,10);
-	$sch_w['events'][1]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][1]['end'] = substr(date("c",($days*86400 + $t)),0,10);
-	}
-	else
-	{
-	$sch_w['events'][0]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
-	$sch_w['events'][0]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][0]['end'] = substr(date("c",strtotime('next Monday')),0,10);
-	$sch_w['events'][1]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	$sch_w['events'][1]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][1]['end'] = substr(date("c",strtotime('next Monday')),0,10);
-	$k = $k - (strtotime('next Sunday') - $t);
-	$t = strtotime('next Sunday')+86400;
-	$h = 2;
-	$orders_gen_u = order_push($orders_gen_u);
-	$orders_gen_b = order_push($orders_gen_b);
+		$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+		$sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
+		
+		$o++;
+		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
+	    $sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
 	
-	while ($k > 86400*7)
-	{
-	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
-	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
-	$h++;
-	$sch_w['events'][$h]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
-	$h++;
-	$t = strtotime('next Sunday',$t)+86400;
-	$k = $k - 86400*7;
-	$orders_gen_u = order_push($orders_gen_u);
-	$orders_gen_b = order_push($orders_gen_b);
-	}
-	
-	if ($k > 86400)
-	{
-	$sch_w['events'][$h]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
-	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
-	$h++;
-	$sch_w['events'][$h]['title'] = 'Upstairs washroom washroom: '.$names_gen_u[mini($orders_gen_u)];
-	$sch_w['events'][$h]['start'] = substr(date("c",$t),0,10);
-	$sch_w['events'][$h]['end'] = substr(date("c",strtotime('next Monday',$t)),0,10);
-	}
-	
-	
-	
+		$o++;
+		$orders_gen_u = order_push($orders_gen_u);
+		$orders_gen_b = order_push($orders_gen_b);
 	}
 	
 	
@@ -377,7 +353,6 @@ for ($i=0;$i<$days;$i++)
 
 	return $sch;
 }
-
 
 function cal_data($inp_ar, $inp_wash)
 {
@@ -793,7 +768,6 @@ for ($i=1;$i<=count($h_name);$i++)
 
 }
 
-
 function sch_gen_screenshot ($time)
 {
 	global $names;
@@ -879,7 +853,6 @@ mysqli_close ($conn);
 	return $sch;
 }
 
-
 function weeks_count($time)
 {
 $this_month = date('n',$time);
@@ -928,8 +901,6 @@ function week_now ($time)
 	return $now;
 }
 
-
-
 function wash_gen_screenshot($time)
 {
 	global $wash_u_names;
@@ -953,7 +924,6 @@ function wash_gen_screenshot($time)
 	$o=0;
 	for ($i=$now;$i<count($weeks);$i++)
 	{
-		//echo date("c",$weeks[$i]['start']).$o.'<br />';
 		$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
 		$sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
 		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
@@ -1071,7 +1041,7 @@ function GetImageFromUrl($link) {
 
 if (!file_exists('calendar.jpg'))
 {
-pic_update ();
+//pic_update ();
 }
 
 

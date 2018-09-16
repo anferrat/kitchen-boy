@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
 } else {
  die("No Data found");
 }
-
+add_history($names[mini($order_numbers)],'history');
 $order_numbers=order_push($order_numbers);
 
 for ($i=0;$i<count($order_numbers);$i++)
@@ -69,6 +69,8 @@ if ($result->num_rows > 0) {
  die("No Data found");
 }
 
+add_history($wash_b_names[mini($wash_b_orders)],'basement_history');
+add_history($wash_u_names[mini($wash_u_orders)],'upstairs_history');
 $wash_u_orders=order_push($wash_u_orders);
 $wash_b_orders=order_push($wash_b_orders);
 

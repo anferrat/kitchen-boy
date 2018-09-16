@@ -1036,5 +1036,46 @@ mysqli_close ($conn);
 	return $sch_w;
 }
 
+function screenshotlayer($url, $args) {
+
+  // set access key
+  $access_key =  getenv('scr_sh');
+
+  // encode target URL
+  $params['url'] = urlencode($url);
+
+  $params += $args;
+
+  // create the query string based on the options
+  foreach($params as $key => $value) { $parts[] = "$key=$value"; }
+
+  // compile query string
+  $query = implode("&", $parts);
+
+  return "https://api.screenshotlayer.com/api/capture?access_key=$access_key&$query";
+
+}
+
+function pic_update ()
+{
+$params['fullpage']  = '';    
+$params['width'] = '900';      
+$params['viewport']  = '1440x1100';  
+$params['format'] = 'jpg';      
+$params['css_url'] = '';      
+$params['delay'] = '';      
+$params['ttl'] = '';  
+$params['force']     = '';     
+$params['placeholder'] = '';      
+$params['user_agent'] = '';      
+$params['accept_lang'] = '';      
+$params['export'] = '';  
+ $call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
+}
+
+
+
+
+
 mysqli_close ($conn);
 ?>

@@ -1061,7 +1061,8 @@ function pic_update ()
 {   
 $params['width'] = '900';      
 $params['viewport']  = '1440x1100';  
-$params['format'] = 'jpg';      
+$params['format'] = 'jpg'; 
+$params['force'] = '1';     
   
 $call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
 $sourcecode=GetImageFromUrl($call);

@@ -1039,6 +1039,7 @@ mysqli_close ($conn);
 function screenshotlayer($url, $args) {
 
   // set access key
+ 
   $access_key =  getenv('scr_sh');
 
   // encode target URL
@@ -1057,21 +1058,31 @@ function screenshotlayer($url, $args) {
 }
 
 function pic_update ()
-{
-$params['fullpage']  = '';    
+{   
 $params['width'] = '900';      
 $params['viewport']  = '1440x1100';  
 $params['format'] = 'jpg';      
-$params['css_url'] = '';      
-$params['delay'] = '';      
-$params['ttl'] = '';  
-$params['force']     = '';     
-$params['placeholder'] = '';      
-$params['user_agent'] = '';      
-$params['accept_lang'] = '';      
-$params['export'] = '';  
- $call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
+  
+$call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
+$sourcecode=GetImageFromUrl($call);
+
+$savefile = fopen('calendar.jpg', 'w');
+fwrite($savefile, $sourcecode);
+fclose($savefile);
+ }
+ 
+function GetImageFromUrl($link) {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_POST, 0);
+	curl_setopt($ch,CURLOPT_URL,$link);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$result=curl_exec($ch) or die(curl_error($ch));
+	curl_close($ch);
+	return $result;
 }
+
+pic_update ();
 
 
 

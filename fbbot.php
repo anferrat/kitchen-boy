@@ -1053,14 +1053,14 @@ function screenshotlayer($url, $args) {
   // compile query string
   $query = implode("&", $parts);
 
-  return "https://api.screenshotlayer.com/api/capture?access_key=$access_key&$query";
+  return "http://api.screenshotlayer.com/api/capture?access_key=$access_key&$query";
 
 }
 
 function pic_update ()
 {   
 $params['width'] = '1440';      
-$params['viewport']  = '1440x700';  
+$params['viewport']  = '1440x750';  
 $params['format'] = 'jpg'; 
 $params['force'] = '1';     
   

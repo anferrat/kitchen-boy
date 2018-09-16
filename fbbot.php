@@ -1084,7 +1084,10 @@ function GetImageFromUrl($link) {
 	return $result;
 }
 
-//pic_update ();
+if (!file_exists('calendar.jpg'))
+{
+pic_update ();
+}
 
 
 

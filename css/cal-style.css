@@ -1,0 +1,44 @@
+ .fc-event {
+    border: 1px solid #3a87ad; /* default BORDER color */
+    background-color: #3a87ad; /* default BACKGROUND color */
+    color: #fff;               /* default TEXT color */
+    font-size: 13.5pt;            /* EDIT HERE */
+    cursor: default;
+	font-family: Ostrich-Medium, sans-serif;
+	letter-spacing: 2px;
+}
+@font-face{ 
+    font-family: 'Ostrich-Quick';
+    src: url('../fonts/ostrich-sans-light.eot');
+    src: url('../fonts/ostrich-sans-light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ostrich-sans-light.woff') format('woff'),
+         url('../fonts/ostrich-sans-light.ttf') format('truetype'),
+         url('../fonts/ostrich-sans-light.svg#webfont') format('svg');
+}
+@font-face{ 
+    font-family: 'Ostrich-Medium';
+    src: url('../fonts/ostrich-sans-bold.eot');
+    src: url('../fonts/ostrich-sans-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ostrich-sans-bold.woff') format('woff'),
+         url('../fonts/ostrich-sans-bold.ttf') format('truetype'),
+         url('../fonts/ostrich-sans-bold.svg#webfont') format('svg');
+}
+
+.fc-toolbar h2 {
+margin: 0;
+font-size: 36pt;
+font-family: Ostrich-Quick, sans-serif;
+letter-spacing: 4px;
+}
+
+.bins {
+    
+    font-size: 19.5pt;
+
+}
+
+.washroom {
+	
+	font-size: 19.5pt;
+	
+}

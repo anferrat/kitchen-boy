@@ -9,6 +9,7 @@ include 'fbbot.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calendar</title>
 <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+<link rel='stylesheet' href='css/cal-style.css' /> 
 <script src='lib/jquery.min.js'></script>
 <script src='lib/moment.min.js'></script>
 <script src='fullcalendar/fullcalendar.js'></script>

@@ -21,7 +21,7 @@ $(function() {
     firstDay: 1,
 	displayEventTime: false,
 	showNonCurrentDates: false,
-	aspectRatio: 2,
+	aspectRatio: 2.1,
 	eventSources: <?php
   $cal = 'ok';
   echo json_encode(cal_data(sch_gen_screenshot(time()),wash_gen_screenshot(time())));

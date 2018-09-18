@@ -19,7 +19,6 @@ $(function() {
 
   $('#calendar').fullCalendar({
     firstDay: 1,
-	aspectRatio: 2,
 	displayEventTime: false,
 	showNonCurrentDates: false,
   eventSources: <?php

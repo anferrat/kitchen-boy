@@ -356,22 +356,7 @@ for ($i=0;$i<$days;$i++)
 
 function cal_data($inp_ar, $inp_wash)
 {
-	global $names;
-	$calendar = array(
-	array (
-	events => array (
-	array(
-	title=>"",
-	start=>"",
-	end=>""
-	)
-	),
-	backgroundColor => "",
-	borderColor => "",
-	textColor=>""
-	
-	)
-	);
+
 	global $names;
 
 	for ($j=0;$j<count($names);$j++)
@@ -382,16 +367,16 @@ function cal_data($inp_ar, $inp_wash)
 		if ($inp_ar['events'][$i]['title'] == $names[$j])
 		{
 			
-			$calendar[$j]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
-			$calendar[$j]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
-			$calendar[$j]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$calendar[int($j)]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[int($j)]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[int($j)]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
 			$s++;
 		}
 	}
 	$col_ar = getcolbyname($names[$j]);
-	$calendar[$j]['backgroundColor'] = $col_ar['bg'];
-	$calendar[$j]['borderColor'] = $col_ar['bd'];
-	$calendar[$j]['textColor'] = $col_ar['text'];
+	$calendar[int($j)]['backgroundColor'] = $col_ar['bg'];
+	$calendar[int($j)]['borderColor'] = $col_ar['bd'];
+	$calendar[int($j)]['textColor'] = $col_ar['text'];
 	
 	
 	}

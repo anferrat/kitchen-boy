@@ -432,8 +432,9 @@ function cal_data($inp_ar, $inp_wash)
 		$calendar[$ii]['borderColor'] = $col_ar['bd'];
 		$calendar[$ii]['textColor'] = $col_ar['text'];
 		//$calendar[$ii]['nextDayThreshold'] = '00:00:00';
-		}
 		$ii++;
+		}
+		
 	}
 	}
 

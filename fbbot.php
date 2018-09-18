@@ -750,25 +750,23 @@ $sql = "SELECT * FROM ".$database.".".$table;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
-	$o=1;
     while($row = $result->fetch_assoc()) {
-        $h_name[$o] = $row["name"];
-		$o++;
+        $o = $row["id"]-1;
+		$h_name[$o] = $row["name"];
     }
 } 	
-for ($i=count($h_name);$i>1;$i--)
+for ($i=count($h_name)-1;$i>0;$i--)
 {
 	$h_name[$i] = $h_name[$i-1];
 }
-$h_name[1] = $name;
+$h_name[0] = $name;
 
 
-for ($i=1;$i<=count($h_name);$i++)
+for ($i=0;$i<count($h_name);$i++)
 {
-	$sql = "UPDATE ".$database.".".$table." SET `name` = '".$h_name[$i]."' WHERE id = ".$i;
-	mysqli_query($conn, $sql);	
+	$sql = "UPDATE ".$database.".".$table." SET `name` = '".$h_name[$i]."' WHERE id = ".(string)($i+1);
+	mysqli_query($conn, $sql) or die();	
 }
-
 }
 
 function sch_gen_screenshot ($time)

@@ -388,7 +388,7 @@ function cal_data($inp_ar, $inp_wash)
 		{
 			
 			$calendar[$ii]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
-			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'].'T19:00:00+06:00';
 			$calendar[$ii]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
 			$s++;
 		}
@@ -396,7 +396,7 @@ function cal_data($inp_ar, $inp_wash)
 		{
 			
 			$calendar[$ii]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
-			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$ii]['events'][$s]['start'] = $inp_ar['events'][$i]['start'].'T19:00:00+06:00';
 			$calendar[$ii]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
 			$s++;
 		}

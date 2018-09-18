@@ -33,7 +33,7 @@ $(function() {
 </script>
   </head>
   <body>
-  <?php  echo json_encode(cal_data(sch_gen(30),wash_gen(30)), JSON_NUMERIC_CHECK); ?>
+  <?php  //echo json_encode(cal_data(sch_gen(30),wash_gen(30)), JSON_NUMERIC_CHECK); ?>
 <div id='calendar'></div>
   </body>
 </html>

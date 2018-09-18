@@ -357,6 +357,22 @@ for ($i=0;$i<$days;$i++)
 function cal_data($inp_ar, $inp_wash)
 {
 	global $names;
+	$calendar = array(
+	array (
+	events => array (
+	array(
+	title=>"",
+	start=>"",
+	end=>""
+	)
+	),
+	backgroundColor => "",
+	borderColor => "",
+	textColor=>""
+	
+	)
+	);
+	global $names;
 
 	for ($j=0;$j<count($names);$j++)
 	{

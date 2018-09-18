@@ -367,9 +367,9 @@ function cal_data($inp_ar, $inp_wash)
 		if ($inp_ar['events'][$i]['title'] == $names[$j])
 		{
 			
-			$calendar[int($j)]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
-			$calendar[int($j)]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
-			$calendar[int($j)]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$calendar[(int)($j)]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[(int)($j)]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[(int)($j)]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
 			$s++;
 		}
 	}

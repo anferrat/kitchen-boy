@@ -744,6 +744,7 @@ $rr = mysqli_query($conn, $sql);
 function add_history ($name,$table)
 {
 	global $conn;
+	global $database;
 	
 $sql = "SELECT * FROM ".$database.".".$table;
 $result = $conn->query($sql);

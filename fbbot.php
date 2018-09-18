@@ -427,11 +427,11 @@ function cal_data($inp_ar, $inp_wash)
 		}
 		if ($s!=0)
 		{
-		$col_ar = getcolbyname($names[$j]);
+		/*$col_ar = getcolbyname($names[$j]);
 		$calendar[$ii]['backgroundColor'] = $col_ar['bg'];
 		$calendar[$ii]['borderColor'] = $col_ar['bd'];
 		$calendar[$ii]['textColor'] = $col_ar['text'];
-		//$calendar[$ii]['nextDayThreshold'] = '00:00:00';
+		*/
 		$ii++;
 		}
 		

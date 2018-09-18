@@ -374,9 +374,9 @@ function cal_data($inp_ar, $inp_wash)
 		}
 	}
 	$col_ar = getcolbyname($names[$j]);
-	$calendar[int($j)]['backgroundColor'] = $col_ar['bg'];
-	$calendar[int($j)]['borderColor'] = $col_ar['bd'];
-	$calendar[int($j)]['textColor'] = $col_ar['text'];
+	$calendar[(int)($j)]['backgroundColor'] = $col_ar['bg'];
+	$calendar[(int)($j)]['borderColor'] = $col_ar['bd'];
+	$calendar[(int)($j)]['textColor'] = $col_ar['text'];
 	
 	
 	}

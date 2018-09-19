@@ -1034,7 +1034,7 @@ $params['viewport']  = '1440x830';
 $params['format'] = 'jpg'; 
 $params['force'] = '1';
 $params['css_url'] = 'https://warm-caverns-57501.herokuapp.com/css/scrshot.css';
-$params['delay'] = '5';
+$params['delay'] = '4';
   
 $call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
 $sourcecode=GetImageFromUrl($call);
@@ -1061,7 +1061,7 @@ mysqli_close ($conn);
 if (!file_exists('calendar.jpg'))
 {
 pic_update ();
-//header('Location: fbbot.php');
+  //header('Location: fbbot.php');
 }
 
 ?>

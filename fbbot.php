@@ -1056,14 +1056,12 @@ function GetImageFromUrl($link) {
 	return $result;
 }
 
+mysqli_close ($conn);
+
 if (!file_exists('calendar.jpg'))
 {
 pic_update ();
+//header('Location: fbbot.php');
 }
 
-
-
-
-
-mysqli_close ($conn);
 ?>

@@ -143,30 +143,20 @@ function wash_gen($days)
 	$weeks = weeks_count($t);
 	$now = week_now($t);
 	$o=0;
-	$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+	$sch_w['events'][$o]['title'] = 'Washrooms: Basement - '.$names_gen_b[mini($orders_gen_b)].', Upstairs - '.$names_gen_u[mini($orders_gen_u)];
 		$sch_w['events'][$o]['start'] = date("c",$t);
 		$sch_w['events'][$o]['end'] = date("c",$weeks[$now]['end']);
 		
-		$o++;
-		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	    $sch_w['events'][$o]['start'] = date("c",$t);
-		$sch_w['events'][$o]['end'] = date("c",$weeks[$now]['end']);
-	
 		$o++;
 		$orders_gen_u = order_push($orders_gen_u);
 		$orders_gen_b = order_push($orders_gen_b);
 		
 	for ($i=$now+1;$i<count($weeks);$i++)
 	{
-		$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+		$sch_w['events'][$o]['title'] = 'Washrooms: Basement - '.$names_gen_b[mini($orders_gen_b)].', Upstairs - '.$names_gen_u[mini($orders_gen_u)];
 		$sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
 		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
 		
-		$o++;
-		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	    $sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
-		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
-	
 		$o++;
 		$orders_gen_u = order_push($orders_gen_u);
 		$orders_gen_b = order_push($orders_gen_b);
@@ -356,8 +346,22 @@ for ($i=0;$i<$days;$i++)
 
 function cal_data($inp_ar, $inp_wash)
 {
-
 	global $names;
+	$calendar = array(
+	array (
+	events => array (
+	array(
+	title=>"",
+	start=>"",
+	end=>""
+	)
+	),
+	backgroundColor => "",
+	borderColor => "",
+	textColor=>""
+	
+	)
+	);
 
 	for ($j=0;$j<count($names);$j++)
 	{
@@ -367,17 +371,16 @@ function cal_data($inp_ar, $inp_wash)
 		if ($inp_ar['events'][$i]['title'] == $names[$j])
 		{
 			
-			$calendar[(int)($j)]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
-			$calendar[(int)($j)]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
-			$calendar[(int)($j)]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
+			$calendar[$j]['events'][$s]['title'] = $inp_ar['events'][$i]['title'];
+			$calendar[$j]['events'][$s]['start'] = $inp_ar['events'][$i]['start'];
+			$calendar[$j]['events'][$s]['end'] = $inp_ar['events'][$i]['end'];
 			$s++;
 		}
 	}
 	$col_ar = getcolbyname($names[$j]);
-	$calendar[(int)($j)]['backgroundColor'] = $col_ar['bg'];
-	$calendar[(int)($j)]['borderColor'] = $col_ar['bd'];
-	$calendar[(int)($j)]['textColor'] = $col_ar['text'];
-	
+	$calendar[$j]['backgroundColor'] = $col_ar['bg'];
+	$calendar[$j]['borderColor'] = $col_ar['bd'];
+	$calendar[$j]['textColor'] = $col_ar['text'];
 	
 	}
 		$s=0;
@@ -402,19 +405,18 @@ function cal_data($inp_ar, $inp_wash)
 		}
 	}
 	$calendar[$ii]['backgroundColor'] = 'black';
-	$calendar[$ii]['borderColor'] = 'white';
+	$calendar[$ii]['borderColor'] = 'black';
 	$calendar[$ii]['textColor'] = 'white';
+	$calendar[$ii]['className'] = 'bins';
 	$ii++;
-	
+	$w_beg = $ii;
 	if ($inp_wash !== 0)
-	{
-	for ($j=0;$j<count($names);$j++)
 	{
 		$s=0;
 		for ($i=0;$i<count($inp_wash['events']);$i++)
 		{
 		
-		if (strpos($inp_wash['events'][$i]['title'],$names[$j]) !== false)
+		if (strpos($inp_wash['events'][$i]['title'],'Washrooms') !== false)
 		{
 			
 			$calendar[$ii]['events'][$s]['title'] = $inp_wash['events'][$i]['title'];
@@ -427,15 +429,38 @@ function cal_data($inp_ar, $inp_wash)
 		}
 		if ($s!=0)
 		{
+		$calendar[$ii]['className'] = 'washroom';
 		/*$col_ar = getcolbyname($names[$j]);
 		$calendar[$ii]['backgroundColor'] = $col_ar['bg'];
 		$calendar[$ii]['borderColor'] = $col_ar['bd'];
-		$calendar[$ii]['textColor'] = $col_ar['text'];
-		*/
+		$calendar[$ii]['textColor'] = $col_ar['text'];*/
 		$ii++;
+
 		}
+	
+/*	
+	for ($j=$w_beg;$j<count($calendar);$j++)
+	{
+		for ($js=0;$js<count($calendar[$j]['events']);$js++)
+			{
+				for ($i=$w_beg;$i<count($calendar);$i++)
+						{
+							for ($is=0;$is<count($calendar[$i]['events']);$is++)
+								{
+									if (($calendar[$j]['events'][$js]['start'] == $calendar[$i]['events'][$is]['start']) && !($calendar[$j]['events'][$js]['title'] == $calendar[$i]['events'][$is]['title']))
+										
+										{	
+											array_splice($messenger_id,$del_item_num,1);
+											array_splice($names,$del_item_num,1);
+											array_splice($order_numbers,$del_item_num,1);
+										}
+								}		
+						}		
+			}
 		
 	}
+	
+	*/
 	}
 
 	
@@ -925,15 +950,10 @@ function wash_gen_screenshot($time)
 	$o=0;
 	for ($i=$now;$i<count($weeks);$i++)
 	{
-		$sch_w['events'][$o]['title'] = 'Basement washroom: '.$names_gen_b[mini($orders_gen_b)];
+		//echo date("c",$weeks[$i]['start']).$o.'<br />';
+		$sch_w['events'][$o]['title'] = 'Washrooms: Basement - '.$names_gen_b[mini($orders_gen_b)].', Upstairs - '.$names_gen_u[mini($orders_gen_u)];
 		$sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
-		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
-		
-		$o++;
-		$sch_w['events'][$o]['title'] = 'Upstairs washroom: '.$names_gen_u[mini($orders_gen_u)];
-	    $sch_w['events'][$o]['start'] = date("c",$weeks[$i]['start']);
-		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);
-	
+		$sch_w['events'][$o]['end'] = date("c",$weeks[$i]['end']);		
 		$o++;
 		$orders_gen_u = order_push($orders_gen_u);
 		$orders_gen_b = order_push($orders_gen_b);
@@ -973,17 +993,11 @@ $bb = 0;
 $uu = 0;
 for ($i=$now-1;$i>=0;$i--)
 {
-	$sch_w['events'][$l]['title'] = 'Basement washroom: '.$b_name[$bb];
-	$bb++;
+	$sch_w['events'][$l]['title'] = 'Washrooms: Basement - '.$b_name[$bb].', Upstairs - '.$u_name[$uu];
+	$bb++; $uu++;
 	$sch_w['events'][$l]['start'] = date("c",$weeks[$i]['start']);
 	$sch_w['events'][$l]['end'] = date("c",$weeks[$i]['end']);
 	$l++;
-	$sch_w['events'][$l]['title'] = 'Upstairs washroom: '.$u_name[$uu];
-	$uu++;
-	$sch_w['events'][$l]['start'] = date("c",$weeks[$i]['start']);
-	$sch_w['events'][$l]['end'] = date("c",$weeks[$i]['end']);
-	$l++;
-	
 }
 
 	

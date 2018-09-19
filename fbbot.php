@@ -1057,11 +1057,4 @@ function GetImageFromUrl($link) {
 }
 
 mysqli_close ($conn);
-
-if (!file_exists('calendar.jpg'))
-{
-pic_update ();
-  //header('Location: fbbot.php');
-}
-
 ?>

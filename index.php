@@ -630,7 +630,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             }*/
         }
     }
-
+	
+if (!file_exists('calendar.jpg'))
+{
+pic_update ();
+}
 
 mysqli_close ($conn);
 ?>

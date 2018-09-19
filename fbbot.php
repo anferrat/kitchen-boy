@@ -236,7 +236,7 @@ function rem_conf($idd2)
 	$bot->send(new Message($idd2, 'You have been removed from the kitchen schedule'));
 }
 
-function note_gen()
+function note_gen()  //General reminder to clean kitchen
 {
 	global $names;
 	global $messenger_id;
@@ -264,6 +264,45 @@ function note_gen()
 	}
 	
 }
+
+function names_from_washroom_title($title)
+{
+	$mid = strpos ($title,',');
+	$ret['basement'] = substr($title,22,$mid-22);
+	$beg = $mid+13;
+	$ret['upstairs'] = substr($title,$beg);
+	return $ret;
+}
+
+function washroom_note_gen()  //General reminder to clean washrooms
+{
+	global $names;
+	global $messenger_id;
+	global $bot;
+	
+	$d = wash_gen(1);
+	$title = names_from_washroom_title($d['events'][0]['title']);
+	for($i=0;$i<count($names);$i++)
+	{
+		if ($title['basement'] == $names[$i] || $title['upstairs'] == $names[$i])
+		{
+	$recipient_not_id = $i;	
+
+	if (date('N') < 4)
+	{
+	$bot->send(new Message($messenger_id[$recipient_not_id], 'Yo, '.$names[$recipient_not_id].'! This week you will need to clean the bathroom. Pick a day and do it! :)'));	
+	}
+	else
+	{
+	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Just a quick reminder that you should clean the bathroom this week. If you did it - great, if not, find time and do it by Sunday!'));
+	}
+		
+		}
+	}
+		
+}
+
+
 
 function mini($arr)  // returns number of smallest int element in array
 {

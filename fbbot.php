@@ -1030,7 +1030,7 @@ function screenshotlayer($url, $args) {
 function pic_update ()
 {   
 $params['width'] = '1440';      
-$params['viewport']  = '1440x750';  
+$params['viewport']  = '1440x830';  
 $params['format'] = 'jpg'; 
 $params['force'] = '1';     
   

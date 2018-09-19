@@ -6,6 +6,8 @@
     cursor: default;
 	font-family: Ostrich-Medium, sans-serif;
 	letter-spacing: 2px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 @font-face{ 
     font-family: 'Ostrich-Quick';
@@ -24,6 +26,15 @@
          url('../fonts/ostrich-sans-bold.svg#webfont') format('svg');
 }
 
+@font-face{ 
+    font-family: 'Ostrich-Reg';
+    src: url('../fonts/ostrich-sans-regular.eot');
+    src: url('../fonts/ostrich-sans-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ostrich-sans-regular.woff') format('woff'),
+         url('../fonts/ostrich-sans-regular.ttf') format('truetype'),
+         url('../fonts/ostrich-sans-regular.svg#webfont') format('svg');
+}
+
 .fc-toolbar h2 {
 margin: 0;
 font-size: 36pt;
@@ -32,13 +43,23 @@ letter-spacing: 4px;
 }
 
 .bins {
-    
-    font-size: 19.5pt;
-
+    font-family: Raleway, sans-serif;
+    font-size: 10pt;
+	letter-spacing: .5px;
 }
 
 .washroom {
-	
-	font-size: 19.5pt;
+	font-family: Raleway, sans-serif;
+	font-size: 10pt;
+	text-align: center;
+	letter-spacing: 0.4px;
+}
+.fc-day-number {
+	font-family: 'Anton', sans-serif;
+	letter-spacing: 4px;
+}
+.fc-day-header{
+	font-family: Raleway, sans-serif;
+	letter-spacing: 2px;
 	
 }

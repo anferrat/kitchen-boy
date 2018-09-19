@@ -143,7 +143,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 				$req = 'logout';
 			}
 			
-			if (strtolower($command) == 'next')
+			if (strtolower($command) == 'next' || strtolower($command) == 'next day')
 			{
 				$req = 'next';
 			}

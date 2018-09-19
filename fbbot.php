@@ -278,6 +278,7 @@ function washroom_note_gen($loc)  //General reminder to clean washrooms
 {
 	global $names;
 	global $messenger_id;
+	global $locations;
 	global $bot;
 	
 	$d = wash_gen(1);

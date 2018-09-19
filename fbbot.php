@@ -1032,7 +1032,9 @@ function pic_update ()
 $params['width'] = '1440';      
 $params['viewport']  = '1440x830';  
 $params['format'] = 'jpg'; 
-$params['force'] = '1';     
+$params['force'] = '1';
+$params['css_url'] = 'https://warm-caverns-57501.herokuapp.com/css/scrshot.css';
+$params['delay'] = '5';
   
 $call = screenshotlayer("https://warm-caverns-57501.herokuapp.com/calendar-screenshot.php", $params);  
 $sourcecode=GetImageFromUrl($call);
@@ -1056,7 +1058,7 @@ function GetImageFromUrl($link) {
 
 if (!file_exists('calendar.jpg'))
 {
-//pic_update ();
+pic_update ();
 }
 
 

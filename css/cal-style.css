@@ -61,5 +61,8 @@ letter-spacing: 4px;
 .fc-day-header{
 	font-family: Raleway, sans-serif;
 	letter-spacing: 2px;
+}
+.fc-today {
 	
+background: white;
 }

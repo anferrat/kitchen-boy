@@ -212,8 +212,8 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					
 					if ($req == 'calendar')
 					{
-					$bot->send(new Message($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.php'));
-					
+					//$bot->send(new Message($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.php'));
+					$bot->send(new ImageMessage($message['sender']['id'], 'https://warm-caverns-57501.herokuapp.com/calendar.jpg'));
 					}
 					else if ($req == 'logout')
 					{

@@ -274,22 +274,37 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						
 						if ($locations[id_from_msid($message['sender']['id'])] === 'b')
 						{
-							$bot->send(new Message($message['sender']['id'],$wash_names['basement'].' cleans basement washroom this week'));
+							
+							
+							if ($wash_names['basement'] == $names[id_from_msid($message['sender']['id'])])
+							{
+								$bot->send(new Message($message['sender']['id'],'You clean basement washroom this week'));
+							}
+							else
+							{
+								$bot->send(new Message($message['sender']['id'],$wash_names['basement'].' cleans basement washroom this week'));
+							}
 						}
 						else if ($locations[id_from_msid($message['sender']['id'])] === 'u')
 						{
+							if ($wash_names['upstairs'] == $names[id_from_msid($message['sender']['id'])])
+							{
+								$bot->send(new Message($message['sender']['id'],'You clean washroom upstairs this week'));
+							}
+							else
+							{
 							$bot->send(new Message($message['sender']['id'],$wash_names['upstairs'].' cleans washroom upstairs this week'));
+							}
 						}
 						
-						else {
+						else 
+						{
 							$bot->send(new Message($message['sender']['id'],'Unable to answer'));
-							
 						}
 			
 						
 						
 					}
-					
 				else
 					{
 						

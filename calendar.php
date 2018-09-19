@@ -10,7 +10,7 @@ include 'fbbot.php';
     <title>Calendar</title>
 <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 <link rel='stylesheet' href='css/cal-style.css' /> 
-<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Anton|Righteous" rel="stylesheet">
 <script src='lib/jquery.min.js'></script>
 <script src='lib/moment.min.js'></script>
 <script src='fullcalendar/fullcalendar.js'></script>

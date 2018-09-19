@@ -151,12 +151,12 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'remind';
 			}
-			if (strtolower($command) == 'washroom remind')
+			if (strtolower($command) == 'washroom remind' || strtolower($command) == 'bathroom remind')
 			{
 				$req = 'washroom remind';
 			}
 			
-			if (strtolower($command) == 'washroom')
+			if (strtolower($command) == 'washroom' || strtolower($command) == 'bathroom')
 			{
 				$req = 'washroom';
 			}

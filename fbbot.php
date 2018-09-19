@@ -577,6 +577,7 @@ $names[count($names)] = $new_name;
 $messenger_id[count($messenger_id)] = $ms_id;
 $order_numbers[count($order_numbers)] = $new_order;
 }
+pic_update ();
 	return $stat;
 }
 
@@ -763,6 +764,7 @@ $rr = mysqli_query($conn, $sql);
 	{
 		$stat = 0;
 	}
+	pic_update ();
 	return $stat;
 }
 

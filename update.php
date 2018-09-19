@@ -90,5 +90,11 @@ $rr = mysqli_query($conn, $sql) or die($sql);
 
 }
 
+if ( date('j',time()+500) == 1)
+{
+	pic_update ();
+}
+
+
 mysqli_close ($conn);
 ?>

@@ -147,10 +147,15 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'next';
 			}
-			if (strtolower($command) == 'remind')
+			if (strtolower($command) == 'remind' || strtolower($command) == 'kitchen remind')
 			{
 				$req = 'remind';
 			}
+			if (strtolower($command) == 'washroom remind')
+			{
+				$req = 'washroom remind';
+			}
+			
 			if (strtolower($command) == 'washroom')
 			{
 				$req = 'washroom';
@@ -286,24 +291,27 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 							}
 						}
 						else if ($locations[id_from_msid($message['sender']['id'])] === 'u')
-						{
-							if ($wash_names['upstairs'] == $names[id_from_msid($message['sender']['id'])])
 							{
+								if ($wash_names['upstairs'] == $names[id_from_msid($message['sender']['id'])])
+								{
 								$bot->send(new Message($message['sender']['id'],'You clean washroom upstairs this week'));
+								}
+								else
+								{
+								$bot->send(new Message($message['sender']['id'],$wash_names['upstairs'].' cleans washroom upstairs this week'));
+								}
 							}
-							else
+						
+							else 
 							{
-							$bot->send(new Message($message['sender']['id'],$wash_names['upstairs'].' cleans washroom upstairs this week'));
+								$bot->send(new Message($message['sender']['id'],'Unable to answer'));
 							}
-						}
-						
-						else 
-						{
-							$bot->send(new Message($message['sender']['id'],'Unable to answer'));
-						}
-			
-						
-						
+					
+					}
+					else if ($req == 'washroom remind')
+					{
+						washroom_note_gen();
+						$bot->send(new Message($message['sender']['id'], 'Additional reminder has been sent to the person on duty.'));
 					}
 				else
 					{

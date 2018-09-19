@@ -310,7 +310,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 					}
 					else if ($req == 'washroom remind')
 					{
-						washroom_note_gen();
+						washroom_note_gen($locations[id_from_msid($message['sender']['id'])]);
 						$bot->send(new Message($message['sender']['id'], 'Additional reminder has been sent to the person on duty.'));
 					}
 				else

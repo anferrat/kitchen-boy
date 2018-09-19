@@ -274,7 +274,7 @@ function names_from_washroom_title($title)
 	return $ret;
 }
 
-function washroom_note_gen()  //General reminder to clean washrooms
+function washroom_note_gen($loc)  //General reminder to clean washrooms
 {
 	global $names;
 	global $messenger_id;
@@ -288,6 +288,8 @@ function washroom_note_gen()  //General reminder to clean washrooms
 		{
 	$recipient_not_id = $i;	
 
+	if (!($locations[$i] != $loc && $loc != 'a'))
+	{
 	if (date('N') < 4)
 	{
 	$bot->send(new Message($messenger_id[$recipient_not_id], 'Yo, '.$names[$recipient_not_id].'! This week you will need to clean the bathroom. Pick a day and do it! :)'));	
@@ -296,7 +298,7 @@ function washroom_note_gen()  //General reminder to clean washrooms
 	{
 	$bot->send(new Message($messenger_id[$recipient_not_id], 'Hello, '.$names[$recipient_not_id].'! Just a quick reminder that you should clean the bathroom this week. If you did it - great, if not, find time and do it by Sunday!'));
 	}
-		
+	}
 		}
 	}
 		

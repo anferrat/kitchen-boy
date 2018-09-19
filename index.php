@@ -151,7 +151,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 			{
 				$req = 'remind';
 			}
-			if (strtolower($command) == 'today')
+			if (strtolower($command) == 'washroom')
+			{
+				$req = 'washroom';
+			}
+			if (strtolower($command) == 'today' || strtolower($command) == 'kitchen')
 			{
 				$req = 'today';
 			}
@@ -263,6 +267,26 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						{
 						$bot->send(new Message($message['sender']['id'], 'Name has not been found. Make sure you spell it right.'));	
 						}
+					} else if ($req == 'washroom')
+					{
+						$w_cl = wash_gen (1);
+						$wash_names = names_from_washroom_title($w_cl['events'][0]['title']);
+						
+						if (locations[id_from_msid($message['sender']['id'])] == 'b')
+						{
+							$bot->send(new Message($message['sender']['id'],$wash_names['basement'].' cleans basement washroom this week'));
+						}
+						else if (locations[id_from_msid($message['sender']['id'])] == 'u')
+						{
+							$bot->send(new Message($message['sender']['id'],$wash_names['upstairs'].' cleans washroom upstairs this week'));
+						}
+						
+						else {
+							
+						}
+			
+						
+						
 					}
 					
 				else

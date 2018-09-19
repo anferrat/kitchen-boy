@@ -4,8 +4,7 @@
     color: #fff;               /* default TEXT color */
     font-size: 13.5pt;            /* EDIT HERE */
     cursor: default;
-	font-family: font-family: 'Righteous', cursive;
-	letter-spacing: 2px;
+	font-family: Righteous, cursive;
 	padding-left: 5px;
 }
 @font-face{ 

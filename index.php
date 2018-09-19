@@ -282,6 +282,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 						}
 						
 						else {
+							$bot->send(new Message($message['sender']['id'],'Unable to answer'));
 							
 						}
 			
